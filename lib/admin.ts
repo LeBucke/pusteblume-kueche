@@ -26,14 +26,14 @@ const roles = z
   .min(1, { error: "Bitte wähle mindestens eine Rolle." })
   .transform((values) => APP_ROLES.filter((role) => values.includes(role)));
 
-const requiredName = (label: string) =>
+export const requiredName = (label: string) =>
   z
     .string()
     .trim()
     .min(1, { error: `Bitte gib ${label} ein.` })
     .max(80, { error: "Der Name ist zu lang (höchstens 80 Zeichen)." });
 
-const optionalText = (max: number) =>
+export const optionalText = (max: number) =>
   z
     .string()
     .trim()

@@ -8,6 +8,8 @@ const ITEMS = [
   { href: "/admin/einstellungen", label: "Einstellungen" },
   { href: "/admin/lieferanten", label: "Lieferanten" },
   { href: "/admin/warengruppen", label: "Warengruppen" },
+  { href: "/admin/allergene", label: "Allergene prüfen" },
+  { href: "/zutaten", label: "Zutaten" },
 ];
 
 /** Unterseiten des Adminbereichs. Auf dem Handy scrollt die Leiste seitlich. */

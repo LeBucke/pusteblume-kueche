@@ -19,6 +19,16 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: Size;
 };
 
+/** Klassen eines Buttons, damit auch Links (`<a>`) wie Buttons aussehen können. */
+export function buttonClass(variant: Variant = "primary", size: Size = "md", className?: string) {
+  return cn(
+    "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-display font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50",
+    variants[variant],
+    sizes[size],
+    className,
+  );
+}
+
 export function Button({
   variant = "primary",
   size = "md",
@@ -26,16 +36,5 @@ export function Button({
   className,
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      type={type}
-      className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-display font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50",
-        variants[variant],
-        sizes[size],
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <button type={type} className={buttonClass(variant, size, className)} {...props} />;
 }

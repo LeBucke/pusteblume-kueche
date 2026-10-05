@@ -672,6 +672,10 @@ export type Database = {
         Returns: boolean
       }
       is_active_user: { Args: never; Returns: boolean }
+      merge_ingredients: {
+        Args: { source_id: string; target_id: string }
+        Returns: number
+      }
     }
     Enums: {
       app_role: "admin" | "planung" | "kueche" | "einkauf"

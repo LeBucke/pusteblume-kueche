@@ -54,6 +54,18 @@ export async function requireAdmin(): Promise<CurrentProfile> {
   return profile;
 }
 
+/**
+ * Für Server Actions, die Rezepte und Stammdaten der Planung ändern (Zutaten, später Rezepte und Plan):
+ * nur planung und admin. Wie bei requireAdmin schützt das Layout die Seite, die Action prüft selbst.
+ */
+export async function requirePlanung(): Promise<CurrentProfile> {
+  const profile = await requireProfile();
+  if (!profile.roles.includes("planung") && !profile.roles.includes("admin")) {
+    redirect(homePath(profile.roles) ?? "/kein-zugang");
+  }
+  return profile;
+}
+
 /** Wie requireProfile, und schickt auf die eigene Startseite, wenn die Rollen die Route nicht erlauben. */
 export async function requireAccess(pathname: string): Promise<CurrentProfile> {
   const profile = await requireProfile();
