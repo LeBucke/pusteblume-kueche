@@ -3,7 +3,7 @@
 Abhaken mit Datum und einem Satz zum Stand. Reihenfolge einhalten.
 
 - [x] 00 Grundgerüst (2026-10-05): Next.js 16 mit Tailwind 4, Design-Tokens, Rahmen mit Navigation, UI-Bausteine, Vitest; lint, typecheck, test, build grün.
-- [ ] 01 Rechenlogik
+- [x] 01 Rechenlogik (2026-10-05): Reine Funktionen für Daten, Einheiten, Mengen, Allergene, Rotation und Einkauf in `lib/` mit 89 Tests; lint, typecheck, test, build grün.
 - [ ] 02 Datenbank und Rechte
 - [ ] 03 Login und Rollen
 - [ ] 04 Admin: Nutzer, Einstellungen, Lieferanten, Warengruppen
