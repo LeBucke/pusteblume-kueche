@@ -35,6 +35,10 @@ where id = (select id from auth.users where email = 'deine.adresse@example.de');
 
 Prüfen mit `select display_name, roles, active from public.profiles;`. Weitere Rollen vergibt später der Admin in der App (Paket 04). Verfügbar sind `admin`, `planung`, `kueche`, `einkauf`.
 
+### Anmelden ohne Mail (Testphase)
+
+Der eingebaute Mailversand von Supabase erlaubt nur etwa 2 Mails pro Stunde. Zum Testen gibt `npm run dev:login` einen Anmeldelink aus, ohne Mail zu verschicken (bei mehreren Nutzern mit Adresse: `npm run dev:login deine@adresse.de`). Link im Browser öffnen, er ist einmalig und etwa eine Stunde gültig. Das Skript braucht den Service Role Key aus `.env.local` und bricht ab, wenn `NEXT_PUBLIC_SITE_URL` nicht auf localhost zeigt. Mit eigenem SMTP (vor Paket 04) ist es nicht mehr nötig.
+
 Wer mehrere Rollen hat, landet nach der Anmeldung auf der Startseite der ersten passenden in dieser Reihenfolge: planung (Speiseplan), kueche (Heute), einkauf (Einkauf), admin (Admin). Nach einer Rollenänderung in der Datenbank genügt Neuladen, ein neuer Login ist nicht nötig.
 
 ## Vor Paket 04 (Einladungen an andere)

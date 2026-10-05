@@ -32,6 +32,7 @@ Format: Datum, Paket, Entscheidung, Grund.
 - 2026-10-05, Paket 03: `/auth/callback` kann zusätzlich zum `code` auch `token_hash` + `type` einlösen (`verifyOtp`). Das braucht Paket 04 für Einladungen, und es lässt sich mit einer Mailvorlage (`{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email`) später nutzen, falls der Magic Link wegen PKCE zwischen Mail-App und Browser Probleme macht. Die Vorlagen in `docs/mail-vorlagen.md` nutzen vorerst `{{ .ConfirmationURL }}`.
 - 2026-10-05, Paket 03: Neue Abhängigkeiten `@supabase/ssr` und `zod`, `@supabase/supabase-js` von devDependencies nach dependencies verschoben (die App braucht es zur Laufzeit). Die Sitzung hält über Cookies von `@supabase/ssr` (Standard 400 Tage Lebensdauer) mit Refresh Token Rotation.
 - 2026-10-05, Paket 03: Handprüfung lief gegen das verknüpfte Projekt mit vier Wegwerf Nutzern (`__rls_p03_*`: Einkauf, Admin+Planung, inaktiv, ohne Rolle). Die Anmeldelinks kamen per Admin API (`generateLink`), es gingen keine Mails raus. Alle Nutzer sind wieder gelöscht. **Offen für Paket 04:** Nach `inviteUserByEmail` Rollen per Service Role auf dem Profil setzen (siehe Eintrag Paket 02).
+- 2026-10-05, Paket 03: Mit Paul beschlossen: `npm run dev:login` (`scripts/dev-login.mjs`) erzeugt per Admin API einen Anmeldelink ohne Mail, weil der Standardversand von Supabase in der Testphase nach wenigen Mails sperrt. Es bricht ab, wenn `NEXT_PUBLIC_SITE_URL` nicht localhost ist. Kann entfallen, sobald eigener SMTP läuft.
 
 ## Offen (Ideen für später, nicht umsetzen)
 
