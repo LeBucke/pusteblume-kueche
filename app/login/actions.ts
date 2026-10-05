@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { siteUrl } from "@/lib/site-url";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState =
@@ -12,10 +13,6 @@ const emailSchema = z
   .string()
   .trim()
   .pipe(z.email({ error: "Bitte gib eine gültige Mailadresse ein." }));
-
-function siteUrl() {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
-}
 
 /** Schickt den Magic Link. Es werden keine neuen Konten angelegt (shouldCreateUser: false). */
 export async function requestMagicLink(

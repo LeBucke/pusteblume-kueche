@@ -1,14 +1,8 @@
 import { signOut } from "@/app/auth/actions";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
+import { ROLE_LABELS } from "@/lib/roles";
 import type { AppRole } from "@/lib/types";
-
-const ROLE_LABELS: Record<AppRole, string> = {
-  admin: "Admin",
-  planung: "Planung",
-  kueche: "Küche",
-  einkauf: "Einkauf",
-};
 
 type UserMenuProps = {
   displayName: string;

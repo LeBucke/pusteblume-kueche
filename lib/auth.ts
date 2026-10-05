@@ -42,6 +42,18 @@ export async function requireProfile(): Promise<CurrentProfile> {
   redirect(claims?.claims.sub ? "/kein-zugang" : "/login");
 }
 
+/**
+ * Für Server Actions im Adminbereich: das Layout schützt die Seite, aber eine Action lässt sich auch
+ * direkt aufrufen. Wer kein aktiver Admin ist, kommt nicht weiter.
+ */
+export async function requireAdmin(): Promise<CurrentProfile> {
+  const profile = await requireProfile();
+  if (!profile.roles.includes("admin")) {
+    redirect(homePath(profile.roles) ?? "/kein-zugang");
+  }
+  return profile;
+}
+
 /** Wie requireProfile, und schickt auf die eigene Startseite, wenn die Rollen die Route nicht erlauben. */
 export async function requireAccess(pathname: string): Promise<CurrentProfile> {
   const profile = await requireProfile();

@@ -43,7 +43,8 @@ Wer mehrere Rollen hat, landet nach der Anmeldung auf der Startseite der ersten 
 
 ## Vor Paket 04 (Einladungen an andere)
 
-Eigenen Mailversand einrichten (Supabase › Authentication › SMTP Settings), z. B. über das Kita Postfach oder einen Dienst wie Resend. Ohne eigenen SMTP kommen Einladungen und Magic Links an fremde Adressen nicht zuverlässig an.
+1. Eigenen Mailversand einrichten (Supabase › Authentication › SMTP Settings), z. B. über das Kita Postfach oder einen Dienst wie Resend. Ohne eigenen SMTP kommen Einladungen und Magic Links an fremde Adressen nicht zuverlässig an, und die App meldet beim Einladen „zu viele Mails“.
+2. Die Mailvorlage „Invite user“ in Supabase durch die neue aus `docs/mail-vorlagen.md` ersetzen (Link mit `token_hash`). Mit der alten Vorlage meldet die Einladung nicht an.
 
 ## Vor Paket 16 (Livegang)
 

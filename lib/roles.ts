@@ -10,6 +10,13 @@ const HOME_BY_ROLE: ReadonlyArray<readonly [AppRole, string]> = [
   ["admin", "/admin"],
 ];
 
+export const ROLE_LABELS: Record<AppRole, string> = {
+  admin: "Admin",
+  planung: "Planung",
+  kueche: "Küche",
+  einkauf: "Einkauf",
+};
+
 export interface NavItem {
   href: string;
   label: string;
