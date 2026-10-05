@@ -3,6 +3,10 @@ import { cn } from "@/lib/utils";
 export const inputClass =
   "min-h-touch w-full rounded-full border border-line bg-surface px-5 text-base text-ink placeholder:text-muted";
 
+/** Mehrzeiliges Feld: wie inputClass, aber mit Kartenrundung, denn rounded-full schneidet bei mehreren Zeilen den Text ab. */
+export const textareaClass =
+  "min-h-24 w-full rounded-card-sm border border-line bg-surface px-5 py-3 text-base text-ink placeholder:text-muted";
+
 type FieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "id"> & {
   id: string;
   label: string;

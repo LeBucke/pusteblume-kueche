@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { createSupplier, updateSupplier } from "@/app/(app)/admin/lieferanten/actions";
-import { Field, inputClass } from "@/components/admin/field";
+import { Field, textareaClass } from "@/components/admin/field";
 import { FormMessage } from "@/components/admin/form-message";
 import { useFormAction } from "@/components/admin/use-form-action";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,7 @@ export function SupplierForm({ supplier }: { supplier?: SupplierData }) {
           name="notes"
           rows={2}
           defaultValue={supplier?.notes}
-          className={`${inputClass} min-h-24 rounded-card-sm py-3`}
+          className={textareaClass}
         />
       </div>
       <FormMessage state={state} />

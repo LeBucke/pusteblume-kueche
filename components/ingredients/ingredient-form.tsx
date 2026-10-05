@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import { createIngredient, setIngredientArchived, updateIngredient } from "@/app/(app)/zutaten/actions";
-import { Field, inputClass } from "@/components/admin/field";
+import { Field, inputClass, textareaClass } from "@/components/admin/field";
 import { FormMessage } from "@/components/admin/form-message";
 import { useFormAction } from "@/components/admin/use-form-action";
 import { AllergenFields } from "@/components/ingredients/allergen-fields";
@@ -139,7 +139,7 @@ export function IngredientForm({
             name="notes"
             rows={2}
             defaultValue={ingredient?.notes}
-            className={`${inputClass} min-h-24 rounded-card-sm py-3`}
+            className={textareaClass}
           />
         </div>
 

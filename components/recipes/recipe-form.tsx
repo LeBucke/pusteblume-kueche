@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { saveRecipe } from "@/app/(app)/rezepte/actions";
-import { Field, inputClass } from "@/components/admin/field";
+import { Field, inputClass, textareaClass } from "@/components/admin/field";
 import { FormMessage } from "@/components/admin/form-message";
 import { useFormAction } from "@/components/admin/use-form-action";
 import { IngredientPicker, type PickerIngredient } from "@/components/ingredients/ingredient-picker";
@@ -356,7 +356,7 @@ export function RecipeForm({
             rows={8}
             defaultValue={recipe.steps}
             aria-describedby="rezept-schritte-hinweis"
-            className={`${inputClass} rounded-card-sm py-3`}
+            className={textareaClass}
           />
           <p id="rezept-schritte-hinweis" className="mt-1 text-sm text-muted">
             Jede Zeile wird ein nummerierter Schritt.
@@ -371,7 +371,7 @@ export function RecipeForm({
             name="notes"
             rows={3}
             defaultValue={recipe.notes}
-            className={`${inputClass} rounded-card-sm py-3`}
+            className={textareaClass}
           />
         </div>
       </section>

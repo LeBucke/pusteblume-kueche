@@ -51,7 +51,11 @@ export function IngredientPicker({
   const [message, setMessage] = useState("");
   const [pending, startTransition] = useTransition();
 
-  const all = useMemo(() => [...ingredients, ...created], [ingredients, created]);
+  // Eine beim Anlegen gemeldete vorhandene Zutat steht oft schon in der Liste, jede ID darf nur einmal vorkommen.
+  const all = useMemo(() => {
+    const seen = new Set<string>();
+    return [...ingredients, ...created].filter((ingredient) => !seen.has(ingredient.id) && seen.add(ingredient.id));
+  }, [ingredients, created]);
   const matches = useMemo(() => searchIngredients(all, query).slice(0, MAX_RESULTS), [all, query]);
 
   const trimmed = query.trim();
@@ -99,6 +103,9 @@ export function IngredientPicker({
       else create();
     } else if (event.key === "Escape") {
       setOpen(false);
+    } else if (event.key === "Tab" && !event.shiftKey && open && !selected && active < matches.length) {
+      // Tab übernimmt den markierten Treffer, damit man beim schnellen Tippen nicht erst Enter drücken muss.
+      choose(matches[active]);
     }
   }
 
@@ -132,7 +139,21 @@ export function IngredientPicker({
           setMessage("");
         }}
         onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
+        onBlur={() => {
+          setOpen(false);
+          // Steht der Name oder ein Synonym genau so im Feld, gilt die Zutat als gewählt.
+          if (!selected && trimmed !== "") {
+            const exact = all.find(
+              (ingredient) =>
+                foldText(ingredient.name) === folded || ingredient.aliases.some((alias) => foldText(alias) === folded),
+            );
+            if (exact) {
+              setSelected(exact);
+              setQuery(exact.name);
+              onSelect?.(exact);
+            }
+          }
+        }}
         onKeyDown={onKeyDown}
       />
 
