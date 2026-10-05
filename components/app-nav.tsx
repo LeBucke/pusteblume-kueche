@@ -2,23 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import { PillTabs } from "@/components/ui/pill-tabs";
-
-// Ab Paket 03 filtert die Rolle diese Liste.
-const items = [
-  { href: "/heute", label: "Heute" },
-  { href: "/plan", label: "Speiseplan" },
-  { href: "/rezepte", label: "Rezepte" },
-  { href: "/vorlagen", label: "Vorlagen" },
-  { href: "/einkauf", label: "Einkauf" },
-  { href: "/admin", label: "Admin" },
-];
+import type { NavItem } from "@/lib/roles";
 
 type AppNavProps = {
+  /** Die Punkte, die die Rollen des Nutzers sehen dürfen (siehe lib/roles.ts). */
+  items: NavItem[];
   layout: "top" | "bottom";
   className?: string;
 };
 
-export function AppNav({ layout, className }: AppNavProps) {
+export function AppNav({ items, layout, className }: AppNavProps) {
   const pathname = usePathname();
 
   return (

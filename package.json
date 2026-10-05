@@ -12,12 +12,14 @@
     "test:rls": "vitest run --config vitest.rls.config.mts && supabase db query --linked -f supabase/tests/profile_trigger.sql"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
     "next": "16.3.8",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@supabase/supabase-js": "^2.117.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24.19.1",
     "@types/react": "^19",

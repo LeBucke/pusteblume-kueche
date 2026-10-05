@@ -20,7 +20,22 @@ Diese Schritte brauchen Konten und Passwörter und werden deshalb nicht von Clau
 
 1. Supabase › Authentication › URL Configuration: Site URL `http://localhost:3000`, Redirect URL `http://localhost:3000/auth/callback` hinzufügen.
 2. Supabase › Authentication › Providers › Email: aktiv, „Confirm email“ an, neue Anmeldungen (Sign ups) **aus**, damit sich niemand selbst registrieren kann.
-3. Ersten Admin anlegen: Supabase › Authentication › Users › Invite user mit deiner eigenen Adresse. Danach in Paket 03 beschrieben: Rolle admin im Profil setzen.
+3. Ersten Admin anlegen: Supabase › Authentication › Users › Invite user mit deiner eigenen Adresse. Der Link in der Einladungsmail ist nicht nötig, die Anmeldung läuft später über `/login`.
+4. Deutsche Mailtexte für Magic Link und Einladung aus `docs/mail-vorlagen.md` unter Authentication › Email Templates einfügen.
+
+### Rollen setzen (erster Admin)
+
+Das Profil entsteht automatisch mit dem Auth Nutzer, hat aber noch keine Rollen. Ohne Rolle zeigt die App „Kein Zugang“. Rolle setzen in Supabase › SQL Editor (Mailadresse anpassen):
+
+```sql
+update public.profiles
+set roles = '{admin,planung}'
+where id = (select id from auth.users where email = 'deine.adresse@example.de');
+```
+
+Prüfen mit `select display_name, roles, active from public.profiles;`. Weitere Rollen vergibt später der Admin in der App (Paket 04). Verfügbar sind `admin`, `planung`, `kueche`, `einkauf`.
+
+Wer mehrere Rollen hat, landet nach der Anmeldung auf der Startseite der ersten passenden in dieser Reihenfolge: planung (Speiseplan), kueche (Heute), einkauf (Einkauf), admin (Admin). Nach einer Rollenänderung in der Datenbank genügt Neuladen, ein neuer Login ist nicht nötig.
 
 ## Vor Paket 04 (Einladungen an andere)
 
