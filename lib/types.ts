@@ -1,7 +1,20 @@
-/** Schlanke Typen für die Fachlogik. Später an die DB Typen anpassbar. */
+/** Schlanke Typen für die Fachlogik. Enums stammen aus den DB Typen (lib/database.types.ts). */
 
+import type { Database } from "./database.types";
+
+export type Course = Database["public"]["Enums"]["course"];
+export type AppRole = Database["public"]["Enums"]["app_role"];
+
+/** Als Tupel, damit Typen und Datenbank nicht auseinanderlaufen (siehe Prüfung darunter). */
 export const COURSES = ["vorspeise", "hauptgang", "nachtisch"] as const;
-export type Course = (typeof COURSES)[number];
+export const APP_ROLES = ["admin", "planung", "kueche", "einkauf"] as const;
+
+// Kompilierfehler, sobald ein Enum in der Datenbank von diesen Listen abweicht.
+type Same<A, B> = [A] extends [B] ? ([B] extends [A] ? true : never) : never;
+const _coursesMatchDb: Same<(typeof COURSES)[number], Course> = true;
+const _rolesMatchDb: Same<(typeof APP_ROLES)[number], AppRole> = true;
+void _coursesMatchDb;
+void _rolesMatchDb;
 
 /** Wochentag Montag bis Freitag (1 bis 5). */
 export type Weekday = 1 | 2 | 3 | 4 | 5;
