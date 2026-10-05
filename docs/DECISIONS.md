@@ -53,6 +53,7 @@ Format: Datum, Paket, Entscheidung, Grund.
 
 ## Offen (Ideen für später, nicht umsetzen)
 
+- Zutaten, Aufwand beim Prüfen (Paul, 2026-10-05): Jede Zutat einzeln zu prüfen ist viel Arbeit, und Ersatzprodukte aus anderen Läden ändern die Allergene. Ideen, falls es im Alltag nervt: mehrere Zutaten auf der Prüfseite gemeinsam bestätigen, ein Datum „zuletzt geprüft“ mit Erinnerung nach einer Frist, Vorschläge für gängige Zutaten (Möhre, Kartoffel …) beim Anlegen, oder bei Produktwechsel eine Zutat per Klick wieder auf ungeprüft setzen. Die Regel „ungeprüft darf nie wie allergenfrei aussehen“ (SPEC 4.3) bleibt dabei bestehen.
 - Zutaten: Die Auswahl von Quelle und Ziel beim Zusammenführen sind normale Auswahlfelder. Bei mehreren hundert Zutaten wäre der `IngredientPicker` dort bequemer.
 - Zutaten: Legt der Picker eine Zutat an, deren Name nur bei einer archivierten Zutat vorkommt, bietet er die archivierte als „vorhanden“ an. Selten, aber Paket 06 sollte archivierte Treffer nicht in Rezepte übernehmen.
 - Zutaten: Die Liste lädt alle Zutaten auf einmal und filtert auf dem Server. Reicht für einige hundert, danach paginieren.
