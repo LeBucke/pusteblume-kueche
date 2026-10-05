@@ -72,9 +72,17 @@ export function navItemsFor(roles: readonly AppRole[]): NavItem[] {
   }));
 }
 
+/** Rezepte lesen dürfen alle, Anlegen und Bearbeiten nur planung und admin. */
+const RECIPE_EDIT_ROLES: readonly AppRole[] = ["planung", "admin"];
+
+export function isRecipeEditPath(pathname: string): boolean {
+  return pathname === "/rezepte/neu" || /^\/rezepte\/[^/]+\/bearbeiten\/?$/.test(pathname);
+}
+
 /** Darf jemand mit diesen Rollen diese Route öffnen? Gilt für den Pfad und alles darunter. */
 export function canAccess(roles: readonly AppRole[], pathname: string): boolean {
   if (roles.length === 0) return false;
+  if (isRecipeEditPath(pathname)) return allowed(RECIPE_EDIT_ROLES, roles);
   const section = [...SECTIONS, ...HIDDEN_SECTIONS].find(
     (s) => pathname === s.href || pathname.startsWith(`${s.href}/`),
   );

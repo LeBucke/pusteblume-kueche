@@ -676,6 +676,10 @@ export type Database = {
         Args: { source_id: string; target_id: string }
         Returns: number
       }
+      save_recipe: {
+        Args: { p_id: string; p_lines: Json; p_recipe: Json }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "planung" | "kueche" | "einkauf"

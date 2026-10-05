@@ -84,6 +84,19 @@ describe("canAccess", () => {
     expect(canAccess(["admin"], "/admin/nutzer")).toBe(true);
   });
 
+  it("lässt alle Rezepte lesen, aber nur planung und admin anlegen und bearbeiten", () => {
+    for (const path of ["/rezepte", "/rezepte/abc"]) {
+      expect(canAccess(["kueche"], path)).toBe(true);
+      expect(canAccess(["einkauf"], path)).toBe(true);
+    }
+    for (const path of ["/rezepte/neu", "/rezepte/abc/bearbeiten"]) {
+      expect(canAccess(["kueche"], path)).toBe(false);
+      expect(canAccess(["einkauf"], path)).toBe(false);
+      expect(canAccess(["planung"], path)).toBe(true);
+      expect(canAccess(["admin"], path)).toBe(true);
+    }
+  });
+
   it("verwechselt Präfixe nicht", () => {
     expect(canAccess(["einkauf"], "/adminfoo")).toBe(true);
   });

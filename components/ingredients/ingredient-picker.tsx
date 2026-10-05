@@ -14,20 +14,27 @@ const MAX_RESULTS = 8;
  * direkt an („Neue Zutat anlegen“, startet mit ungeprüften Allergenen und erscheint dann auf der
  * Prüfseite). Die Liste kommt von der aufrufenden Seite (nur nicht archivierte Zutaten).
  *
- * Für Paket 06 (Rezepte): `onSelect` meldet die gewählte Zutat. Mit `name` schreibt die Komponente
- * zusätzlich ein verstecktes Feld mit der ID, damit sie auch in einem normalen Formular funktioniert.
+ * `onSelect` meldet die gewählte Zutat, `onClear` das Gegenteil (der Text wurde nach der Auswahl geändert).
+ * Mit `name` schreibt die Komponente zusätzlich ein verstecktes Feld mit der ID, damit sie auch in einem
+ * normalen Formular funktioniert. `hideLabel` blendet die Beschriftung nur visuell aus (für Tabellenzeilen).
  */
 export function IngredientPicker({
   ingredients,
   onSelect,
+  onClear,
   label = "Zutat",
+  hideLabel = false,
+  autoFocus = false,
   name,
   initial,
   canCreate = true,
 }: {
   ingredients: readonly PickerIngredient[];
   onSelect?: (ingredient: PickerIngredient) => void;
+  onClear?: () => void;
   label?: string;
+  hideLabel?: boolean;
+  autoFocus?: boolean;
   name?: string;
   initial?: PickerIngredient | null;
   canCreate?: boolean;
@@ -97,7 +104,7 @@ export function IngredientPicker({
 
   return (
     <div className="relative">
-      <label htmlFor={`${baseId}-eingabe`} className="mb-1.5 block font-bold">
+      <label htmlFor={`${baseId}-eingabe`} className={hideLabel ? "sr-only" : "mb-1.5 block font-bold"}>
         {label}
       </label>
       {name && <input type="hidden" name={name} value={selected?.id ?? ""} />}
@@ -107,6 +114,7 @@ export function IngredientPicker({
         type="text"
         role="combobox"
         autoComplete="off"
+        autoFocus={autoFocus}
         aria-expanded={open}
         aria-controls={listId}
         aria-autocomplete="list"
@@ -117,6 +125,7 @@ export function IngredientPicker({
         className={inputClass}
         onChange={(event) => {
           setQuery(event.target.value);
+          if (selected) onClear?.();
           setSelected(null);
           setOpen(true);
           setActive(0);
