@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pusteblume Küche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F6F1; --surface:#FFFFFF; --surface2:#EAF0E8; --ink:#1D2A23; --muted:#5A6A61; --line:#D6DFD4;
+  --leaf:#2E6A44; --leaf-ink:#FFFFFF; --leaf-soft:#E1EDE3; --sun:#F2C12E; --sun-soft:#FFF3C9; --sun-ink:#5C4500;
+  --alert:#A9412A;
+  --display:"Bricolage Grotesque", "Trebuchet MS", "Segoe UI", sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111915; --surface:#18221D; --surface2:#1F2C25; --ink:#E6EEE8; --muted:#9BAEA3; --line:#2D3C34;
+    --leaf:#7CC496; --leaf-ink:#0E1A13; --leaf-soft:#1F3428; --sun:#F2C12E; --sun-soft:#3A3217; --sun-ink:#F7DD8A;
+    --alert:#F08C70; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111915; --surface:#18221D; --surface2:#1F2C25; --ink:#E6EEE8; --muted:#9BAEA3; --line:#2D3C34;
+  --leaf:#7CC496; --leaf-ink:#0E1A13; --leaf-soft:#1F3428; --sun:#F2C12E; --sun-soft:#3A3217; --sun-ink:#F7DD8A;
+  --alert:#F08C70; color-scheme: dark;
+}
+:root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px); }
+*,*::before,*::after{ box-sizing:inherit; }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.5; }
+img{ max-width:100%; }
+button,input,select,textarea{ font:inherit; color:inherit; }
+:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
+h1,h2,h3{ font-family:var(--display); line-height:1.15; margin:0; }
+
+/* Header */
+.top{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--bg); border-bottom:1px solid var(--line); }
+.top-inner{ max-width:1120px; margin:0 auto; padding:12px 20px 0; }
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand svg{ width:30px; height:30px; flex:none; }
+.brand h1{ font-size:22px; font-weight:800; letter-spacing:-.01em; }
+.brand span{ color:var(--muted); font-size:15px; margin-left:auto; }
+.tabs{ display:flex; gap:4px; overflow-x:auto; margin-top:8px; scrollbar-width:none; }
+.tabs::-webkit-scrollbar{ display:none; }
+.tab{ border:0; background:none; padding:10px 14px 12px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap; }
+.tab small{ display:block; font-weight:400; font-size:13px; }
+.tab[aria-current="page"]{ color:var(--ink); border-bottom-color:var(--sun); }
+.tab:hover{ color:var(--ink); }
+
+main{ max-width:1120px; margin:0 auto; padding:24px 20px 80px; }
+.banner{ max-width:1120px; margin:12px auto 0; padding:0 20px; }
+.banner p{ margin:0; padding:10px 14px; border-radius:10px; background:var(--sun-soft); color:var(--sun-ink); font-size:15px; }
+
+/* Generic */
+.btn{ display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--surface); padding:9px 14px; border-radius:10px; cursor:pointer; font-weight:700; font-size:15px; text-decoration:none; }
+.btn:hover{ border-color:var(--muted); }
+.btn.primary{ background:var(--leaf); color:var(--leaf-ink); border-color:var(--leaf); }
+.btn.primary:hover{ filter:brightness(1.08); }
+.btn.ghost{ background:none; border-color:transparent; }
+.btn.danger{ color:var(--alert); }
+.btn.small{ padding:6px 10px; font-size:14px; }
+.row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.spacer{ flex:1; }
+.muted{ color:var(--muted); }
+label.field{ display:flex; flex-direction:column; gap:4px; font-size:14px; font-weight:700; color:var(--muted); }
+input[type=text],input[type=number],input[type=date],input[type=search],select,textarea{
+  background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:16px; color:var(--ink); min-width:0;
+}
+textarea{ resize:vertical; line-height:1.5; }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{ font-size:13px; padding:2px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); }
+.empty{ padding:32px; border:2px dashed var(--line); border-radius:14px; text-align:center; color:var(--muted); }
+.empty p{ margin:0 0 12px; }
+
+/* Heute */
+.day-head{ display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.day-head .date{ font-family:var(--display); font-weight:800; font-size:clamp(34px,6vw,58px); letter-spacing:-.02em; line-height:1; }
+.day-head .sub{ color:var(--muted); margin-top:6px; }
+.weekstrip{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin-bottom:26px; }
+.weekstrip button{ text-align:left; border:1px solid var(--line); background:var(--surface); border-radius:10px; padding:8px 10px; cursor:pointer; min-width:0; }
+.weekstrip b{ display:block; font-size:13px; color:var(--muted); }
+.weekstrip span{ display:block; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.weekstrip button.on{ background:var(--sun-soft); border-color:var(--sun); }
+.weekstrip button.on b{ color:var(--sun-ink); }
+.note{ background:var(--sun-soft); color:var(--sun-ink); padding:12px 16px; border-radius:12px; margin-bottom:20px; }
+.course{ border-top:1px solid var(--line); padding:22px 0; }
+.course-label{ font-size:14px; font-weight:700; color:var(--muted); }
+.course h2{ font-size:clamp(26px,4vw,38px); font-weight:700; letter-spacing:-.01em; margin:2px 0 10px; }
+.course.main h2{ font-size:clamp(32px,5.4vw,52px); font-weight:800; }
+.course-body{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:28px; margin-top:14px; }
+@media (max-width:760px){ .course-body{ grid-template-columns:1fr; gap:18px; } }
+.ing{ width:100%; border-collapse:collapse; font-size:17px; }
+.ing td{ padding:6px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+.ing td.amt{ white-space:nowrap; padding-right:14px; font-weight:700; width:1%; text-align:right; }
+.steps{ margin:0; padding-left:1.4em; }
+.steps li{ margin-bottom:8px; max-width:66ch; }
+.closed{ font-family:var(--display); font-size:30px; font-weight:700; color:var(--muted); padding:30px 0; }
+
+/* Plan */
+.monthbar{ display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+.monthbar h2{ font-size:30px; font-weight:800; min-width:9ch; }
+.cal-wrap{ overflow-x:auto; }
+.cal{ display:grid; grid-template-columns:repeat(5,minmax(150px,1fr)); gap:8px; min-width:780px; }
+.cal .wd{ font-weight:700; color:var(--muted); font-size:14px; padding:0 4px; }
+.cell{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:9px 10px 10px; min-height:132px; text-align:left; cursor:pointer; display:flex; flex-direction:column; gap:3px; }
+.cell:hover{ border-color:var(--muted); }
+.cell.out{ opacity:.45; }
+.cell.today{ border:2px solid var(--sun); }
+.cell .num{ font-family:var(--display); font-weight:700; font-size:18px; }
+.cell .v,.cell .n{ font-size:13px; color:var(--muted); line-height:1.3; }
+.cell .h{ font-size:15px; font-weight:700; line-height:1.25; }
+.cell .al{ font-size:12px; color:var(--muted); margin-top:auto; }
+.cell .closedtxt{ color:var(--muted); font-style:italic; font-size:14px; }
+.cell .add{ color:var(--muted); font-size:14px; margin-top:auto; }
+.cell .ov{ font-size:12px; color:var(--sun-ink); background:var(--sun-soft); border-radius:6px; padding:0 6px; align-self:flex-start; }
+
+/* Rezepte */
+.toolbar{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; margin-bottom:18px; }
+.toolbar input[type=search]{ flex:1 1 220px; }
+.rlist{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px; }
+.rcard{ text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; cursor:pointer; display:flex; flex-direction:column; gap:4px; }
+.rcard:hover{ border-color:var(--muted); }
+.rcard h3{ font-size:19px; font-weight:700; }
+.rcard .meta{ font-size:14px; color:var(--muted); }
+.gang-h{ font-family:var(--display); font-size:22px; font-weight:700; margin:26px 0 10px; }
+.gang-h:first-child{ margin-top:0; }
+.detail h2{ font-size:clamp(32px,5vw,48px); font-weight:800; letter-spacing:-.01em; }
+.scale{ display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; background:var(--surface2); padding:12px 14px; border-radius:12px; margin:16px 0 4px; }
+.scale input{ width:90px; }
+
+/* Einkauf */
+.shop-head{ display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; margin-bottom:18px; }
+.planned{ font-size:15px; color:var(--muted); margin-bottom:20px; }
+.supplier{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:16px; }
+.supplier-h{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+.supplier-h h2{ font-size:24px; font-weight:800; }
+.grp{ font-weight:700; color:var(--muted); font-size:14px; margin:14px 0 4px; }
+.item{ display:flex; gap:12px; align-items:center; padding:7px 0; border-bottom:1px solid var(--line); cursor:pointer; }
+.item input{ width:22px; height:22px; accent-color:var(--leaf); flex:none; }
+.item .nm{ flex:1; min-width:0; }
+.item .nm small{ display:block; color:var(--muted); font-size:13px; }
+.item .am{ font-weight:700; white-space:nowrap; }
+.item.done .nm,.item.done .am{ text-decoration:line-through; color:var(--muted); }
+.extra-add{ display:flex; gap:8px; margin-top:10px; }
+.extra-add input{ flex:1; }
+
+/* Einstellungen */
+.settings{ display:grid; gap:18px; max-width:760px; }
+.panel{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px; }
+.panel h2{ font-size:22px; font-weight:700; margin-bottom:10px; }
+.panel p{ margin:0 0 12px; color:var(--muted); font-size:15px; max-width:62ch; }
+.map{ display:grid; grid-template-columns:auto 1fr; gap:8px 14px; align-items:center; }
+
+/* Dialog */
+dialog{ border:0; border-radius:16px; padding:0; background:var(--surface); color:var(--ink); width:min(760px,calc(100vw - 24px)); max-height:calc(100% - 24px); box-shadow:0 20px 60px rgba(0,0,0,.25); }
+dialog::backdrop{ background:rgba(10,20,15,.45); }
+.dlg-inner{ padding:20px 22px; }
+.dlg-inner h2{ font-size:26px; font-weight:800; margin-bottom:14px; }
+.dlg-foot{ position:sticky; bottom:0; background:var(--surface); border-top:1px solid var(--line); padding:12px 22px; display:flex; gap:10px; flex-wrap:wrap; }
+.form-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:14px; }
+.zrow{ display:grid; grid-template-columns:80px 110px minmax(120px,1fr) 160px 36px; gap:6px; margin-bottom:6px; }
+@media (max-width:640px){ .zrow{ grid-template-columns:70px 90px 1fr 36px; } .zrow .zg{ grid-column:1 / span 3; } }
+.zhead{ font-size:13px; font-weight:700; color:var(--muted); }
+.algrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:4px 12px; }
+.algrid label{ display:flex; gap:8px; align-items:center; font-size:15px; }
+.cbx{ display:flex; gap:8px; align-items:center; }
+.sect{ font-weight:700; margin:16px 0 8px; }
+
+#toast{ position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--ink); color:var(--bg); padding:10px 16px; border-radius:10px; font-size:15px; opacity:0; pointer-events:none; transition:opacity .2s; z-index:50; max-width:90vw; }
+#toast.show{ opacity:1; }
+
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+@media print{
+  .top,.banner,.noprint,.btn,#toast{ display:none !important; }
+  body{ background:#fff; color:#000; font-size:12pt; }
+  main{ padding:0; max-width:none; }
+  .cal{ min-width:0; } .cell{ min-height:0; break-inside:avoid; border-color:#999; }
+  .supplier{ break-inside:avoid; border-color:#999; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <g stroke="var(--leaf)" stroke-width="1.6" stroke-linecap="round">
+          <line x1="20" y1="22" x2="20" y2="39"/>
+          <line x1="20" y1="13" x2="20" y2="3"/><line x1="20" y1="13" x2="28.5" y2="6"/><line x1="20" y1="13" x2="31" y2="14"/>
+          <line x1="20" y1="13" x2="28" y2="21"/><line x1="20" y1="13" x2="11.5" y2="6"/><line x1="20" y1="13" x2="9" y2="14"/><line x1="20" y1="13" x2="12" y2="21"/>
+        </g>
+        <circle cx="20" cy="13" r="3.4" fill="var(--sun)"/>
+      </svg>
+      <h1>Pusteblume Küche</h1>
+      <span id="status"></span>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Bereiche">
+      <button class="tab" data-v="heute">Heute<small>Küche</small></button>
+      <button class="tab" data-v="plan">Speiseplan<small>Planung</small></button>
+      <button class="tab" data-v="rezepte">Rezepte<small>Sammlung</small></button>
+      <button class="tab" data-v="einkauf">Einkauf<small>Listen</small></button>
+      <button class="tab" data-v="einstellungen">Einstellungen</button>
+    </nav>
+  </div>
+</header>
+<div class="banner" id="banner"></div>
+<main id="app"></main>
+<dialog id="dlg"></dialog>
+<dialog id="confirmDlg"><div class="dlg-inner"><p id="confirmMsg" style="margin:0 0 6px;font-size:18px"></p></div><div class="dlg-foot"><button class="btn primary" id="confirmOk">OK</button><button class="btn" id="confirmCancel">Abbrechen</button></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ---------- Konstanten ---------- */
+const ALLERGENE = ["Glutenhaltiges Getreide","Krebstiere","Eier","Fisch","Erdnüsse","Soja","Milch","Schalenfrüchte","Sellerie","Senf","Sesam","Schwefeldioxid/Sulfite","Lupinen","Weichtiere"];
+const AL_KURZ = {"Glutenhaltiges Getreide":"Gluten","Schalenfrüchte":"Nüsse","Schwefeldioxid/Sulfite":"Sulfite"};
+const GAENGE = [{id:"vorspeise",label:"Vorspeise"},{id:"hauptgang",label:"Hauptgang"},{id:"nachtisch",label:"Nachtisch"}];
+const GRUPPEN = ["Gemüse","Obst","Milchprodukte","Getreide & Teigwaren","Grundnahrungsmittel","Gewürze & Würzmittel","Tiefkühl","Konserven & Gläser","Sonstiges"];
+const EINHEITEN = ["g","kg","ml","l","St.","Pckg.","Dose","Glas","Bund","EL","TL","Prise"];
+const KATEGORIEN = ["Suppe","Eintopf","Kartoffeln","Teigwaren","Reis","Getreide","Gemüse","Salat","Rohkost","Auflauf","Süßes","Obst","Quark & Joghurt","Brot"];
+const DEFAULT_SETTINGS = {
+  kinder:20, erwachsene:5, faktorErw:1.5,
+  lieferanten:["Bio-Bauer","Großhandel"],
+  zuordnung:{"Gemüse":"Bio-Bauer","Obst":"Bio-Bauer","Milchprodukte":"Bio-Bauer","Getreide & Teigwaren":"Großhandel","Grundnahrungsmittel":"Großhandel","Gewürze & Würzmittel":"Großhandel","Tiefkühl":"Großhandel","Konserven & Gläser":"Großhandel","Sonstiges":"Großhandel"}
+};
+
+/* ---------- Datum ---------- */
+const pad = n => String(n).padStart(2,"0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y,m-1,d); };
+const addDays = (s,n) => { const d = parse(s); d.setDate(d.getDate()+n); return iso(d); };
+const mondayOf = s => { const d = parse(s); d.setDate(d.getDate()-((d.getDay()+6)%7)); return iso(d); };
+const isWeekend = s => { const w = parse(s).getDay(); return w===0 || w===6; };
+const TODAY = iso(new Date());
+const fmtLong = s => parse(s).toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"});
+const fmtShort = s => parse(s).toLocaleDateString("de-DE",{weekday:"short",day:"numeric",month:"numeric"});
+const fmtDM = s => parse(s).toLocaleDateString("de-DE",{day:"numeric",month:"numeric"});
+const nextSchoolDay = s => { let d = s; while(isWeekend(d)) d = addDays(d,1); return d; };
+
+/* ---------- Zustand ---------- */
+const S = {
+  db:null, live:false, canWrite:true, ready:false, downloads:null,
+  recipes:{}, plan:{}, einkauf:{}, settings:structuredClone(DEFAULT_SETTINGS),
+  view:"heute", day:nextSchoolDay(TODAY), month:TODAY.slice(0,7),
+  recipeId:null, q:"", fGang:"", fOhne:"", scaleK:null, scaleE:null,
+  shopStart:mondayOf(TODAY), shopDays:7
+};
+
+/* ---------- Hilfen ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s||"").trim().toLowerCase();
+const newId = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const num = v => { if(v===null || v===undefined || v==="") return null; const n = Number(String(v).replace(",",".")); return Number.isFinite(n) ? n : null; };
+let toastT;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove("show"), 2600); }
+function ask(msg, okLabel="OK"){
+  return new Promise(res => {
+    const d = $("#confirmDlg"); $("#confirmMsg").textContent = msg; $("#confirmOk").textContent = okLabel;
+    const done = v => { d.close(); $("#confirmOk").onclick = $("#confirmCancel").onclick = null; res(v); };
+    $("#confirmOk").onclick = () => done(true); $("#confirmCancel").onclick = () => done(false);
+    d.oncancel = e => { e.preventDefault(); done(false); };
+    d.showModal();
+  });
+}
+const alShort = a => AL_KURZ[a] || a;
+
+/* ---------- Mengen ---------- */
+function toBase(m,u){ if(u==="kg") return [m*1000,"g"]; if(u==="l") return [m*1000,"ml"]; return [m,u]; }
+function roundAmt(v,u){
+  if(u==="g"||u==="ml") return v>=100 ? Math.round(v/10)*10 : Math.max(1,Math.round(v));
+  if(["St.","Pckg.","Dose","Glas","Bund"].includes(u)) return Math.max(.5, Math.round(v*2)/2);
+  return Math.round(v*10)/10;
+}
+function fmtAmount(m,u){
+  if(m===null || m===undefined) return "nach Bedarf";
+  let [v,un] = toBase(m,u||"");
+  if(un==="g" && v>=1000){ v/=1000; un="kg"; }
+  else if(un==="ml" && v>=1000){ v/=1000; un="l"; }
+  const r = (un==="kg"||un==="l") ? Math.round(v*10)/10 : roundAmt(v,un);
+  return r.toLocaleString("de-DE",{maximumFractionDigits:2}) + (un ? " " + un : "");
+}
+const portions = (k,e) => k + e*(Number(S.settings.faktorErw)||1);
+function groupFor(day){
+  const k = Number.isFinite(day?.kinder) ? day.kinder : S.settings.kinder;
+  const e = Number.isFinite(day?.erwachsene) ? day.erwachsene : S.settings.erwachsene;
+  return {k,e};
+}
+function factor(r,k,e){ const base = portions(r.kinder ?? 20, r.erwachsene ?? 5); return base>0 ? portions(k,e)/base : 1; }
+function allergensOfDay(p){ const s = new Set(); if(!p) return []; GAENGE.forEach(g => { const r = S.recipes[p[g.id]]; (r?.allergene||[]).forEach(a=>s.add(a)); }); return ALLERGENE.filter(a=>s.has(a)); }
+function lieferantFor(gruppe){
+  const l = S.settings.zuordnung?.[gruppe];
+  return (l && S.settings.lieferanten.includes(l)) ? l : (S.settings.lieferanten[S.settings.lieferanten.length-1] || "Einkauf");
+}
+function knownIngredients(){
+  const m = {};
+  Object.values(S.recipes).forEach(r => (r.zutaten||[]).forEach(z => { if(z.name) m[norm(z.name)] = {name:z.name.trim(), gruppe:z.gruppe, einheit:z.einheit}; }));
+  return m;
+}
+
+/* ---------- Speichern (eine Schreiboperation pro Dokument zur Zeit) ---------- */
+const queues = {};
+function write(path, fn){
+  const q = (queues[path] || Promise.resolve()).then(fn).catch(err => {
+    console.error(err);
+    if(err && err.code === "invalid_argument"){ S.canWrite = false; render(); toast("Keine Schreibrechte für diese Seite."); }
+    else if(err && err.code === "quota_exceeded"){ toast("Speicher voll. Bitte alte Einkaufslisten oder Pläne löschen."); }
+    else toast("Speichern fehlgeschlagen. Bitte noch einmal versuchen.");
+  });
+  queues[path] = q; return q;
+}
+function saveRecipe(id, data){
+  if(!S.live){ S.recipes[id] = data; render(); return Promise.resolve(); }
+  return write("rezepte/"+id, () => S.db.doc("rezepte/"+id).set(data));
+}
+function deleteRecipe(id){
+  if(!S.live){ delete S.recipes[id]; render(); return Promise.resolve(); }
+  return write("rezepte/"+id, () => S.db.doc("rezepte/"+id).delete());
+}
+function savePlanDay(date, data){
+  if(!S.live){ if(data) S.plan[date] = data; else delete S.plan[date]; render(); return Promise.resolve(); }
+  return write("plan/"+date, () => data ? S.db.doc("plan/"+date).set(data) : S.db.doc("plan/"+date).delete());
+}
+function saveSettings(data){
+  if(!S.live){ S.settings = {...S.settings, ...data}; render(); return Promise.resolve(); }
+  return write("meta/einstellungen", () => S.db.doc("meta/einstellungen").set({...S.settings, ...data}));
+}
+const shopId = () => `${S.shopStart}_${S.shopDays}`;
+function saveShop(patchFn){
+  const id = shopId();
+  const cur = S.einkauf[id] || {start:S.shopStart, tage:S.shopDays, checked:{}, extras:[]};
+  const base = structuredClone(cur); base.checked ||= {}; base.extras ||= [];
+  const next = patchFn(base);
+  if(!S.live){ S.einkauf[id] = next; render(); return Promise.resolve(); }
+  return write("einkauf/"+id, () => S.db.doc("einkauf/"+id).set(next));
+}
+
+/* ---------- Render ---------- */
+function render(){
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-current", t.dataset.v === S.view ? "page" : "false"));
+  const banner = [];
+  if(!S.ready) banner.push("Verbinde mit der gemeinsamen Datenbank …");
+  else if(!S.live) banner.push("Vorschau ohne gemeinsame Datenbank: Änderungen gehen beim Neuladen verloren.");
+  else if(!S.canWrite) banner.push("Du kannst hier nur lesen. Für Änderungen braucht dein Zugang mindestens die Stufe „Mitwirkende“.");
+  $("#banner").innerHTML = banner.map(b => `<p>${esc(b)}</p>`).join("");
+  $("#status").textContent = S.live ? `${Object.keys(S.recipes).length} Rezepte` : "";
+
+  const a = document.activeElement; const keep = a && a.id ? {id:a.id, s:a.selectionStart, e:a.selectionEnd} : null;
+  const views = {heute:renderHeute, plan:renderPlan, rezepte:renderRezepte, einkauf:renderEinkauf, einstellungen:renderSettings};
+  $("#app").innerHTML = views[S.view]();
+  if(keep){ const el = document.getElementById(keep.id); if(el){ el.focus(); try{ if(keep.s!=null) el.setSelectionRange(keep.s, keep.e); }catch(_){} } }
+}
+
+function ingTable(r, k, e){
+  const f = factor(r,k,e);
+  const rows = (r.zutaten||[]).filter(z=>z.name).map(z => {
+    const m = num(z.menge);
+    return `<tr><td class="amt">${esc(m===null ? (z.einheit||"nach Bedarf") : fmtAmount(m*f, z.einheit))}</td><td>${esc(z.name)}</td></tr>`;
+  }).join("");
+  return rows ? `<table class="ing">${rows}</table>` : `<p class="muted">Keine Zutaten eingetragen.</p>`;
+}
+function stepsHtml(text){
+  const parts = String(text||"").split(/\n\s*\n|\n/).map(s=>s.trim()).filter(Boolean);
+  if(!parts.length) return `<p class="muted">Keine Zubereitung eingetragen.</p>`;
+  return `<ol class="steps">${parts.map(p=>`<li>${esc(p)}</li>`).join("")}</ol>`;
+}
+const alChips = list => (list && list.length) ? `<div class="chips" aria-label="Allergene">${list.map(a=>`<span class="chip">${esc(alShort(a))}</span>`).join("")}</div>` : `<span class="muted" style="font-size:14px">Keine Allergene eingetragen</span>`;
+
+/* Heute */
+function renderHeute(){
+  const d = S.day, p = S.plan[d], mon = mondayOf(d);
+  const strip = [0,1,2,3,4].map(i => {
+    const ds = addDays(mon,i), pp = S.plan[ds];
+    const main = pp?.geschlossen ? "geschlossen" : (S.recipes[pp?.hauptgang]?.name || "nicht geplant");
+    return `<button class="${ds===d?"on":""}" data-act="goday" data-d="${ds}"><b>${esc(fmtShort(ds))}${ds===TODAY?" · heute":""}</b><span>${esc(main)}</span></button>`;
+  }).join("");
+  const {k,e} = groupFor(p);
+  const override = Number.isFinite(p?.kinder) || Number.isFinite(p?.erwachsene);
+  let body;
+  if(p?.geschlossen) body = `<div class="closed">Kita geschlossen${p.notiz ? ": " + esc(p.notiz) : ""}</div>`;
+  else if(!p || !GAENGE.some(g => S.recipes[p[g.id]])) body = `<div class="empty"><p>Für diesen Tag ist noch nichts geplant.</p>${S.canWrite ? `<button class="btn primary" data-act="editday" data-d="${d}">Tag planen</button>` : ""}</div>`;
+  else {
+    body = (p.notiz ? `<div class="note">${esc(p.notiz)}</div>` : "") + GAENGE.map(g => {
+      const r = S.recipes[p[g.id]]; if(!r) return "";
+      return `<section class="course ${g.id==="hauptgang"?"main":""}">
+        <div class="course-label">${g.label}</div>
+        <h2>${esc(r.name)}</h2>${alChips(r.allergene)}
+        <div class="course-body"><div>${ingTable(r,k,e)}</div><div>${stepsHtml(r.zubereitung)}${r.notizen ? `<p class="muted">${esc(r.notizen)}</p>` : ""}</div></div>
+      </section>`;
+    }).join("");
+  }
+  return `<div class="day-head"><div><div class="date">${esc(fmtLong(d))}</div>
+      <div class="sub">für ${k} Kinder und ${e} Erwachsene${override ? " (abweichend vom Standard)" : ""}</div></div>
+      <div class="spacer"></div>
+      <div class="row noprint"><button class="btn" data-act="dayshift" data-n="-1" aria-label="Vorheriger Tag">‹</button><button class="btn" data-act="goday" data-d="${nextSchoolDay(TODAY)}">Heute</button><button class="btn" data-act="dayshift" data-n="1" aria-label="Nächster Tag">›</button>
+      ${S.canWrite ? `<button class="btn" data-act="editday" data-d="${d}">Tag bearbeiten</button>` : ""}</div></div>
+    <div class="weekstrip noprint">${strip}</div>${body}`;
+}
+
+/* Speiseplan */
+function renderPlan(){
+  const [y,m] = S.month.split("-").map(Number);
+  const first = iso(new Date(y,m-1,1)), last = iso(new Date(y,m,0));
+  let d = mondayOf(first), cells = "";
+  while(d <= last){
+    for(let i=0;i<5;i++){
+      const ds = addDays(d,i), p = S.plan[ds], out = ds.slice(0,7) !== S.month;
+      let inner = `<span class="num">${parse(ds).getDate()}.</span>`;
+      if(p?.geschlossen) inner += `<span class="closedtxt">geschlossen${p.notiz ? ": " + esc(p.notiz) : ""}</span>`;
+      else {
+        const v = S.recipes[p?.vorspeise], h = S.recipes[p?.hauptgang], n = S.recipes[p?.nachtisch];
+        if(v) inner += `<span class="v">${esc(v.name)}</span>`;
+        if(h) inner += `<span class="h">${esc(h.name)}</span>`;
+        if(n) inner += `<span class="n">${esc(n.name)}</span>`;
+        if(Number.isFinite(p?.kinder) || Number.isFinite(p?.erwachsene)){ const g = groupFor(p); inner += `<span class="ov">${g.k} K / ${g.e} E</span>`; }
+        const al = allergensOfDay(p);
+        if(al.length) inner += `<span class="al">Enthält: ${esc(al.map(alShort).join(", "))}</span>`;
+        else if(!v && !h && !n) inner += `<span class="add">${S.canWrite ? "+ planen" : "nicht geplant"}</span>`;
+      }
+      cells += `<button class="cell ${out?"out":""} ${ds===TODAY?"today":""}" data-act="${S.canWrite?"editday":"goday"}" data-d="${ds}" aria-label="${esc(fmtLong(ds))}">${inner}</button>`;
+    }
+    d = addDays(d,7);
+  }
+  const title = new Date(y,m-1,1).toLocaleDateString("de-DE",{month:"long",year:"numeric"});
+  return `<div class="monthbar"><button class="btn noprint" data-act="month" data-n="-1" aria-label="Vorheriger Monat">‹</button><h2>${esc(title)}</h2><button class="btn noprint" data-act="month" data-n="1" aria-label="Nächster Monat">›</button>
+    <div class="spacer"></div><button class="btn noprint" data-act="print">Drucken</button></div>
+    <div class="cal-wrap"><div class="cal">${["Montag","Dienstag","Mittwoch","Donnerstag","Freitag"].map(w=>`<div class="wd">${w}</div>`).join("")}${cells}</div></div>`;
+}
+
+/* Rezepte */
+function filteredRecipes(){
+  const q = norm(S.q);
+  return Object.entries(S.recipes).filter(([id,r]) =>
+    (!S.fGang || r.gang === S.fGang) &&
+    (!S.fOhne || !(r.allergene||[]).includes(S.fOhne)) &&
+    (!q || norm(r.name).includes(q) || norm(r.kategorie).includes(q) || (r.zutaten||[]).some(z => norm(z.name).includes(q)))
+  ).sort((a,b) => a[1].name.localeCompare(b[1].name,"de"));
+}
+function renderRezepte(){
+  if(S.recipeId && S.recipes[S.recipeId]) return renderRecipeDetail(S.recipeId);
+  const list = filteredRecipes();
+  const tb = `<div class="toolbar">
+    <label class="field" style="flex:1 1 240px">Suchen<input type="search" id="q" value="${esc(S.q)}" placeholder="Rezept, Kategorie oder Zutat"></label>
+    <label class="field">Gang<select id="fGang"><option value="">Alle Gänge</option>${GAENGE.map(g=>`<option value="${g.id}" ${S.fGang===g.id?"selected":""}>${g.label}</option>`).join("")}</select></label>
+    <label class="field">Ohne Allergen<select id="fOhne"><option value="">Kein Filter</option>${ALLERGENE.map(a=>`<option ${S.fOhne===a?"selected":""}>${esc(a)}</option>`).join("")}</select></label>
+    ${S.canWrite ? `<button class="btn primary" data-act="newrecipe">Neues Rezept</button>` : ""}</div>`;
+  if(!Object.keys(S.recipes).length) return tb + `<div class="empty"><p>Noch keine Rezepte vorhanden.</p>${S.canWrite?`<button class="btn primary" data-act="newrecipe">Erstes Rezept anlegen</button>`:""}</div>`;
+  if(!list.length) return tb + `<div class="empty"><p>Kein Rezept passt zu diesen Filtern.</p></div>`;
+  const byGang = GAENGE.map(g => {
+    const items = list.filter(([,r]) => r.gang === g.id);
+    if(!items.length) return "";
+    return `<h2 class="gang-h">${g.label} <span class="muted" style="font-size:16px;font-weight:500">${items.length}</span></h2><div class="rlist">${items.map(([id,r]) => `
+      <button class="rcard" data-act="openrecipe" data-id="${id}"><h3>${esc(r.name)}</h3>
+      <span class="meta">${esc(r.kategorie||"ohne Kategorie")}${r.allergene?.length ? " · " + esc(r.allergene.map(alShort).join(", ")) : ""}</span></button>`).join("")}</div>`;
+  }).join("");
+  return tb + byGang;
+}
+function renderRecipeDetail(id){
+  const r = S.recipes[id];
+  const k = S.scaleK ?? S.settings.kinder, e = S.scaleE ?? S.settings.erwachsene;
+  const dates = Object.entries(S.plan).filter(([,p]) => !p.geschlossen && GAENGE.some(g => p[g.id]===id)).map(([d])=>d).sort();
+  const past = dates.filter(d => d < TODAY), future = dates.filter(d => d >= TODAY);
+  const gang = GAENGE.find(g=>g.id===r.gang)?.label || "";
+  return `<div class="detail">
+    <div class="row noprint" style="margin-bottom:14px"><button class="btn ghost" data-act="backrecipes">‹ Alle Rezepte</button><div class="spacer"></div>
+      ${S.canWrite ? `<button class="btn" data-act="editrecipe" data-id="${id}">Bearbeiten</button><button class="btn" data-act="duprecipe" data-id="${id}">Kopie anlegen</button><button class="btn danger" data-act="delrecipe" data-id="${id}">Löschen</button>` : ""}
+      <button class="btn" data-act="print">Drucken</button></div>
+    <div class="muted">${esc(gang)}${r.kategorie ? " · " + esc(r.kategorie) : ""}${r.autor ? " · Rezept von " + esc(r.autor) : ""}</div>
+    <h2>${esc(r.name)}</h2>
+    ${r.beschreibung ? `<p style="max-width:62ch">${esc(r.beschreibung)}</p>` : ""}
+    ${alChips(r.allergene)}
+    <div class="scale noprint"><label class="field">Kinder<input type="number" min="0" id="scaleK" value="${k}"></label><label class="field">Erwachsene<input type="number" min="0" id="scaleE" value="${e}"></label>
+      <span class="muted" style="font-size:14px">Grundrezept für ${r.kinder ?? 20} Kinder und ${r.erwachsene ?? 5} Erwachsene</span>
+      ${(S.scaleK!==null||S.scaleE!==null) ? `<button class="btn small" data-act="resetscale">Standard</button>` : ""}</div>
+    <div class="course-body"><div><h3 class="sect">Zutaten für ${k} Kinder und ${e} Erwachsene</h3>${ingTable(r,k,e)}</div>
+      <div><h3 class="sect">Zubereitung</h3>${stepsHtml(r.zubereitung)}${r.notizen ? `<h3 class="sect">Hinweise</h3><p>${esc(r.notizen)}</p>` : ""}</div></div>
+    <p class="muted noprint" style="margin-top:24px;font-size:15px">${future.length ? "Geplant: " + future.slice(0,6).map(fmtShort).join(", ") + ". " : ""}${past.length ? "Zuletzt gekocht am " + fmtShort(past[past.length-1]) + "." : "Noch nicht gekocht."}</p>
+  </div>`;
+}
+
+/* Einkauf */
+function buildShopping(){
+  const dates = Array.from({length:S.shopDays}, (_,i) => addDays(S.shopStart,i));
+  const used = [], items = {}, vorrat = {};
+  dates.forEach(d => {
+    const p = S.plan[d]; if(!p || p.geschlossen) return;
+    const {k,e} = groupFor(p);
+    GAENGE.forEach(g => {
+      const r = S.recipes[p[g.id]]; if(!r) return;
+      used.push({d, name:r.name});
+      const f = factor(r,k,e);
+      (r.zutaten||[]).forEach(z => {
+        const name = String(z.name||"").trim(); if(!name) return;
+        const m = num(z.menge);
+        if(m === null){ vorrat[norm(name)] = {name, gruppe:z.gruppe||"Sonstiges"}; return; }
+        const [v,u] = toBase(m*f, z.einheit||"");
+        const key = (norm(name)+"__"+u).replace(/[^\p{L}\p{N}_]/gu,"_");
+        if(!items[key]) items[key] = {key, name, unit:u, gruppe:z.gruppe||"Sonstiges", menge:0, rezepte:new Set()};
+        items[key].menge += v; items[key].rezepte.add(r.name);
+      });
+    });
+  });
+  return {dates, used, items:Object.values(items), vorrat:Object.values(vorrat)};
+}
+function shopGrouped(sh){
+  const out = {};
+  sh.items.forEach(it => { const l = lieferantFor(it.gruppe); ((out[l] ||= {})[it.gruppe] ||= []).push(it); });
+  return out;
+}
+function shopText(lieferant, groups, doc){
+  const end = addDays(S.shopStart, S.shopDays-1);
+  let t = `Einkauf ${lieferant} für ${fmtDM(S.shopStart)} bis ${fmtDM(end)}\n`;
+  GRUPPEN.forEach(g => { const list = groups[g]; if(!list) return;
+    const open = list.filter(it => !doc?.checked?.[it.key]); if(!open.length) return;
+    t += `\n${g}\n` + open.sort((a,b)=>a.name.localeCompare(b.name,"de")).map(it => `${it.name}: ${fmtAmount(it.menge,it.unit)}`).join("\n") + "\n";
+  });
+  return t.trim();
+}
+function renderEinkauf(){
+  const sh = buildShopping(), doc = S.einkauf[shopId()], checked = doc?.checked || {};
+  const end = addDays(S.shopStart, S.shopDays-1);
+  const head = `<div class="shop-head noprint">
+    <label class="field">Ab<input type="date" id="shopStart" value="${S.shopStart}"></label>
+    <label class="field">Tage<select id="shopDays">${[1,2,3,4,5,7,14].map(n=>`<option ${n===S.shopDays?"selected":""}>${n}</option>`).join("")}</select></label>
+    <button class="btn" data-act="shopweek" data-n="-7">‹ Woche</button><button class="btn" data-act="shopweek" data-n="7">Woche ›</button>
+    <div class="spacer"></div><button class="btn" data-act="print">Drucken</button></div>
+    <h2 style="font-size:30px;font-weight:800;margin-bottom:6px">Einkaufsliste ${esc(fmtDM(S.shopStart))} bis ${esc(fmtDM(end))}</h2>`;
+  if(!sh.used.length) return head + `<div class="empty"><p>In diesem Zeitraum sind keine Gerichte geplant.</p><button class="btn" data-act="goview" data-v="plan">Zum Speiseplan</button></div>`;
+  const counts = {}; sh.used.forEach(u => counts[u.name] = (counts[u.name]||0)+1);
+  const planned = `<p class="planned">Geplant: ${Object.entries(counts).map(([n,c]) => esc(n) + (c>1 ? ` (${c}×)` : "")).join(", ")}</p>`;
+  const grouped = shopGrouped(sh);
+  const order = [...S.settings.lieferanten, ...Object.keys(grouped).filter(l => !S.settings.lieferanten.includes(l))];
+  const suppliers = order.filter(l => grouped[l]).map(l => {
+    const groups = grouped[l];
+    const all = Object.values(groups).flat(), done = all.filter(it => checked[it.key]).length;
+    const body = GRUPPEN.filter(g => groups[g]).map(g => `<div class="grp">${esc(g)}</div>` + groups[g].sort((a,b)=>a.name.localeCompare(b.name,"de")).map(it => `
+      <label class="item ${checked[it.key]?"done":""}"><input type="checkbox" data-act="check" data-k="${esc(it.key)}" ${checked[it.key]?"checked":""} ${S.canWrite?"":"disabled"}>
+      <span class="nm">${esc(it.name)}<small>${esc([...it.rezepte].join(", "))}</small></span><span class="am">${esc(fmtAmount(it.menge,it.unit))}</span></label>`).join("")).join("");
+    return `<section class="supplier"><div class="supplier-h"><h2>${esc(l)}</h2><span class="muted">${done} von ${all.length} erledigt</span><div class="spacer"></div>
+      <button class="btn small noprint" data-act="copyshop" data-l="${esc(l)}">Als Text kopieren</button></div>${body}</section>`;
+  }).join("");
+  const vorrat = sh.vorrat.length ? `<section class="supplier"><div class="supplier-h"><h2>Vorrat prüfen</h2><span class="muted">ohne feste Menge im Rezept</span></div>
+    <p style="margin:6px 0 0">${esc(sh.vorrat.map(v=>v.name).sort((a,b)=>a.localeCompare(b,"de")).join(", "))}</p></section>` : "";
+  const extras = doc?.extras || [];
+  const extraHtml = `<section class="supplier"><div class="supplier-h"><h2>Zusätzlich</h2><span class="muted">Dinge, die in keinem Rezept stehen</span></div>
+    ${extras.map((x,i) => `<label class="item ${x.done?"done":""}"><input type="checkbox" data-act="extracheck" data-i="${i}" ${x.done?"checked":""} ${S.canWrite?"":"disabled"}><span class="nm">${esc(x.text)}</span>${S.canWrite?`<button class="btn ghost small noprint" data-act="extradel" data-i="${i}" aria-label="Entfernen">✕</button>`:""}</label>`).join("")}
+    ${S.canWrite ? `<div class="extra-add noprint"><input type="text" id="extraText" placeholder="z. B. Spülmittel, Brot für Brotdosentag"><button class="btn" data-act="extraadd">Hinzufügen</button></div>` : ""}</section>`;
+  return head + planned + suppliers + vorrat + extraHtml;
+}
+
+/* Einstellungen */
+function renderSettings(){
+  const s = S.settings;
+  return `<div class="settings">
+    <section class="panel"><h2>Gruppengröße</h2><p>Alle Rezepte und Einkaufslisten werden auf diese Anzahl umgerechnet. Einzelne Tage können im Speiseplan abweichen.</p>
+      <div class="row"><label class="field">Kinder<input type="number" min="0" id="setK" value="${s.kinder}" ${S.canWrite?"":"disabled"}></label>
+      <label class="field">Erwachsene<input type="number" min="0" id="setE" value="${s.erwachsene}" ${S.canWrite?"":"disabled"}></label>
+      <label class="field">Portion Erwachsene (in Kinderportionen)<input type="number" step="0.1" min="0.5" id="setF" value="${s.faktorErw}" ${S.canWrite?"":"disabled"}></label></div></section>
+    <section class="panel"><h2>Lieferanten</h2><p>Die Einkaufsliste wird nach Lieferant getrennt, damit jedes Team seine eigene Liste hat.</p>
+      <label class="field" style="margin-bottom:14px">Lieferanten, mit Komma getrennt<input type="text" id="setL" value="${esc(s.lieferanten.join(", "))}" ${S.canWrite?"":"disabled"}></label>
+      <div class="map">${GRUPPEN.map(g => `<span>${esc(g)}</span><select data-grp="${esc(g)}" class="setMap" ${S.canWrite?"":"disabled"}>${s.lieferanten.map(l=>`<option ${lieferantFor(g)===l?"selected":""}>${esc(l)}</option>`).join("")}</select>`).join("")}</div></section>
+    ${S.canWrite ? `<div><button class="btn primary" data-act="savesettings">Einstellungen speichern</button></div>` : ""}
+    <section class="panel"><h2>Datensicherung</h2><p>Alle Rezepte, Pläne und Einstellungen als Datei sichern, damit nichts mehr verloren geht. Die Datei lässt sich hier jederzeit wieder einlesen.</p>
+      <div class="row"><button class="btn" data-act="export">Sicherung herunterladen</button>
+      ${S.canWrite ? `<label class="btn">Sicherung einlesen<input type="file" id="importFile" accept=".json,application/json" hidden></label>` : ""}</div></section>
+  </div>`;
+}
+
+/* ---------- Dialoge ---------- */
+function recipeOptions(gang, sel, date){
+  const last = {};
+  Object.entries(S.plan).forEach(([d,p]) => { if(d >= date || p.geschlossen) return; GAENGE.forEach(g => { const id = p[g.id]; if(id && (!last[id] || last[id] < d)) last[id] = d; }); });
+  const opt = ([id,r]) => `<option value="${id}" ${id===sel?"selected":""}>${esc(r.name)}${last[id] ? " (zuletzt " + fmtDM(last[id]) + ")" : ""}</option>`;
+  const all = Object.entries(S.recipes).sort((a,b)=>a[1].name.localeCompare(b[1].name,"de"));
+  const mine = all.filter(([,r]) => r.gang === gang), other = all.filter(([,r]) => r.gang !== gang);
+  const cats = {}; mine.forEach(x => (cats[x[1].kategorie || "Ohne Kategorie"] ||= []).push(x));
+  return `<option value="">kein Gericht</option>` + Object.keys(cats).sort((a,b)=>a.localeCompare(b,"de")).map(c => `<optgroup label="${esc(c)}">${cats[c].map(opt).join("")}</optgroup>`).join("")
+    + (other.length ? `<optgroup label="Andere Gänge">${other.map(opt).join("")}</optgroup>` : "");
+}
+function openDayEditor(date){
+  const p = S.plan[date] || {};
+  const d = $("#dlg");
+  d.innerHTML = `<div class="dlg-inner"><h2>${esc(fmtLong(date))}</h2>
+    <label class="cbx" style="margin-bottom:14px"><input type="checkbox" id="dGes" ${p.geschlossen?"checked":""}> Kita geschlossen</label>
+    <div id="dCourses">${GAENGE.map(g => `<label class="field" style="margin-bottom:10px">${g.label}<select id="d_${g.id}">${recipeOptions(g.id, p[g.id], date)}</select></label>`).join("")}</div>
+    <label class="field" style="margin-bottom:10px">Notiz für Küche und Einkauf<input type="text" id="dNotiz" value="${esc(p.notiz||"")}" placeholder="z. B. Ausflug, Brotdosentag, Geburtstag"></label>
+    <div class="sect">Abweichende Anzahl an diesem Tag</div>
+    <div class="row"><label class="field">Kinder<input type="number" min="0" id="dK" value="${Number.isFinite(p.kinder)?p.kinder:""}" placeholder="${S.settings.kinder}"></label>
+    <label class="field">Erwachsene<input type="number" min="0" id="dE" value="${Number.isFinite(p.erwachsene)?p.erwachsene:""}" placeholder="${S.settings.erwachsene}"></label></div>
+  </div><div class="dlg-foot"><button class="btn primary" id="dSave">Tag speichern</button><button class="btn" id="dCancel">Abbrechen</button><div class="spacer"></div>${S.plan[date] ? `<button class="btn danger" id="dClear">Tag leeren</button>` : ""}</div>`;
+  d.showModal();
+  $("#dCancel").onclick = () => d.close();
+  if($("#dClear")) $("#dClear").onclick = async () => { d.close(); await savePlanDay(date, null); toast("Tag geleert."); };
+  $("#dSave").onclick = async () => {
+    const data = {datum:date, geschlossen:$("#dGes").checked, notiz:$("#dNotiz").value.trim()};
+    GAENGE.forEach(g => data[g.id] = $("#d_"+g.id).value || null);
+    const k = num($("#dK").value), e = num($("#dE").value);
+    if(k !== null) data.kinder = Math.round(k); if(e !== null) data.erwachsene = Math.round(e);
+    d.close(); await savePlanDay(date, data); toast("Tag gespeichert.");
+  };
+}
+function zRow(z={}, ingList){
+  return `<div class="zrow">
+    <input type="text" inputmode="decimal" class="zm" aria-label="Menge" value="${esc(z.menge ?? "")}" placeholder="Menge">
+    <select class="ze" aria-label="Einheit"><option value="">nach Bedarf</option>${EINHEITEN.map(u=>`<option ${z.einheit===u?"selected":""}>${u}</option>`).join("")}</select>
+    <input type="text" class="zn" aria-label="Zutat" list="ingList" value="${esc(z.name||"")}" placeholder="Zutat">
+    <select class="zg" aria-label="Warengruppe">${GRUPPEN.map(g=>`<option ${(z.gruppe||"Gemüse")===g?"selected":""}>${esc(g)}</option>`).join("")}</select>
+    <button class="btn ghost small zdel" type="button" aria-label="Zutat entfernen">✕</button></div>`;
+}
+function openRecipeEditor(id, copyFrom){
+  const src = copyFrom || (id && S.recipes[id]) || {};
+  const r = {name:"", gang:"hauptgang", kategorie:"", kinder:S.settings.kinder, erwachsene:S.settings.erwachsene, zutaten:[{},{},{}], allergene:[], zubereitung:"", notizen:"", beschreibung:"", autor:"", ...structuredClone(src)};
+  if(copyFrom) r.name = r.name + " (Kopie)";
+  const known = knownIngredients();
+  const d = $("#dlg");
+  d.innerHTML = `<div class="dlg-inner"><h2>${id ? "Rezept bearbeiten" : "Neues Rezept"}</h2>
+    <datalist id="ingList">${Object.values(known).map(k=>`<option value="${esc(k.name)}">`).join("")}</datalist>
+    <datalist id="catList">${[...new Set([...KATEGORIEN, ...Object.values(S.recipes).map(x=>x.kategorie).filter(Boolean)])].map(c=>`<option value="${esc(c)}">`).join("")}</datalist>
+    <div class="form-grid">
+      <label class="field" style="grid-column:1/-1">Name<input type="text" id="rName" value="${esc(r.name)}" required></label>
+      <label class="field">Gang<select id="rGang">${GAENGE.map(g=>`<option value="${g.id}" ${r.gang===g.id?"selected":""}>${g.label}</option>`).join("")}</select></label>
+      <label class="field">Kategorie<input type="text" id="rKat" list="catList" value="${esc(r.kategorie)}"></label>
+      <label class="field">Grundrezept für Kinder<input type="number" min="0" id="rK" value="${r.kinder}"></label>
+      <label class="field">und Erwachsene<input type="number" min="0" id="rE" value="${r.erwachsene}"></label>
+      <label class="field" style="grid-column:1/-1">Kurzbeschreibung<input type="text" id="rBes" value="${esc(r.beschreibung)}"></label>
+      <label class="field">Rezept von<input type="text" id="rAut" value="${esc(r.autor)}"></label>
+    </div>
+    <div class="sect">Zutaten</div>
+    <div class="zrow zhead"><span>Menge</span><span>Einheit</span><span>Zutat</span><span class="zg">Warengruppe</span><span></span></div>
+    <div id="zRows">${r.zutaten.map(z=>zRow(z)).join("")}</div>
+    <button class="btn small" type="button" id="zAdd">Zutat hinzufügen</button>
+    <div class="sect">Zubereitung <span class="muted" style="font-weight:400;font-size:14px">(jede Zeile wird ein Schritt)</span></div>
+    <textarea id="rZub" rows="7" style="width:100%">${esc(r.zubereitung)}</textarea>
+    <div class="sect">Allergene</div>
+    <div class="algrid">${ALLERGENE.map(a=>`<label><input type="checkbox" class="rAl" value="${esc(a)}" ${r.allergene.includes(a)?"checked":""}> ${esc(a)}</label>`).join("")}</div>
+    <div class="sect">Hinweise</div>
+    <textarea id="rNot" rows="2" style="width:100%">${esc(r.notizen)}</textarea>
+  </div><div class="dlg-foot"><button class="btn primary" id="rSave">Rezept speichern</button><button class="btn" id="rCancel">Abbrechen</button></div>`;
+  d.showModal();
+  const rows = $("#zRows");
+  $("#zAdd").onclick = () => { rows.insertAdjacentHTML("beforeend", zRow({})); rows.lastElementChild.querySelector(".zm").focus(); };
+  rows.addEventListener("click", e => { if(e.target.closest(".zdel")) e.target.closest(".zrow").remove(); });
+  rows.addEventListener("change", e => {
+    if(!e.target.classList.contains("zn")) return;
+    const k = known[norm(e.target.value)], row = e.target.closest(".zrow");
+    if(k){ if(k.gruppe) row.querySelector(".zg").value = k.gruppe; if(!row.querySelector(".ze").value && k.einheit) row.querySelector(".ze").value = k.einheit; }
+  });
+  $("#rCancel").onclick = () => d.close();
+  $("#rSave").onclick = async () => {
+    const name = $("#rName").value.trim();
+    if(!name){ $("#rName").focus(); toast("Bitte einen Namen eingeben."); return; }
+    const zutaten = [...rows.querySelectorAll(".zrow")].map(row => ({
+      menge: num(row.querySelector(".zm").value), einheit: row.querySelector(".ze").value,
+      name: row.querySelector(".zn").value.trim(), gruppe: row.querySelector(".zg").value
+    })).filter(z => z.name);
+    const data = { name, gang:$("#rGang").value, kategorie:$("#rKat").value.trim(), kinder:num($("#rK").value) ?? 20, erwachsene:num($("#rE").value) ?? 5,
+      beschreibung:$("#rBes").value.trim(), autor:$("#rAut").value.trim(), zutaten, zubereitung:$("#rZub").value.trim(),
+      allergene:[...document.querySelectorAll(".rAl:checked")].map(c=>c.value), notizen:$("#rNot").value.trim() };
+    const rid = id || newId("r");
+    d.close(); await saveRecipe(rid, data);
+    S.recipeId = rid; S.view = "rezepte"; render(); toast("Rezept gespeichert.");
+  };
+}
+
+/* ---------- Aktionen ---------- */
+document.addEventListener("click", async e => {
+  const tab = e.target.closest(".tab");
+  if(tab){ S.view = tab.dataset.v; if(S.view === "rezepte") S.recipeId = null; render(); window.scrollTo(0,0); return; }
+  const el = e.target.closest("[data-act]"); if(!el || el.closest("dialog")) return;
+  const a = el.dataset.act;
+  if(a === "check" || a === "extracheck") return; // handled by change
+  switch(a){
+    case "goday": S.day = el.dataset.d; S.view = "heute"; render(); break;
+    case "dayshift": { let d = addDays(S.day, +el.dataset.n); while(isWeekend(d)) d = addDays(d, +el.dataset.n); S.day = d; render(); break; }
+    case "editday": openDayEditor(el.dataset.d); break;
+    case "month": { const [y,m] = S.month.split("-").map(Number); const nd = new Date(y, m-1 + (+el.dataset.n), 1); S.month = iso(nd).slice(0,7); render(); break; }
+    case "print": window.print(); break;
+    case "goview": S.view = el.dataset.v; render(); break;
+    case "newrecipe": openRecipeEditor(null); break;
+    case "openrecipe": S.recipeId = el.dataset.id; S.scaleK = S.scaleE = null; render(); window.scrollTo(0,0); break;
+    case "backrecipes": S.recipeId = null; render(); break;
+    case "editrecipe": openRecipeEditor(el.dataset.id); break;
+    case "duprecipe": openRecipeEditor(null, S.recipes[el.dataset.id]); break;
+    case "resetscale": S.scaleK = S.scaleE = null; render(); break;
+    case "delrecipe": {
+      const id = el.dataset.id, r = S.recipes[id];
+      const future = Object.entries(S.plan).filter(([d,p]) => d >= TODAY && GAENGE.some(g => p[g.id]===id)).length;
+      const ok = await ask(`„${r.name}“ endgültig löschen?${future ? ` Es ist noch an ${future} kommenden Tag(en) geplant.` : ""}`, "Löschen");
+      if(ok){ S.recipeId = null; await deleteRecipe(id); toast("Rezept gelöscht."); }
+      break;
+    }
+    case "shopweek": S.shopStart = addDays(S.shopStart, +el.dataset.n); render(); break;
+    case "copyshop": {
+      const sh = buildShopping(), groups = shopGrouped(sh)[el.dataset.l] || {};
+      const text = shopText(el.dataset.l, groups, S.einkauf[shopId()]);
+      try{ await navigator.clipboard.writeText(text); toast("Liste kopiert."); }
+      catch(_){ showCopyFallback(text); }
+      break;
+    }
+    case "extraadd": addExtra(); break;
+    case "extradel": { const i = +el.dataset.i; saveShop(doc => { doc.extras.splice(i,1); return doc; }); break; }
+    case "savesettings": {
+      const lief = $("#setL").value.split(",").map(s=>s.trim()).filter(Boolean);
+      if(!lief.length){ toast("Mindestens einen Lieferanten angeben."); return; }
+      const zuordnung = {}; document.querySelectorAll(".setMap").forEach(s => zuordnung[s.dataset.grp] = lief.includes(s.value) ? s.value : lief[lief.length-1]);
+      await saveSettings({kinder:Math.round(num($("#setK").value) ?? 20), erwachsene:Math.round(num($("#setE").value) ?? 5), faktorErw:num($("#setF").value) ?? 1.5, lieferanten:lief, zuordnung});
+      toast("Einstellungen gespeichert."); break;
+    }
+    case "export": exportData(); break;
+  }
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  if(t.dataset.act === "check"){ const k = t.dataset.k, v = t.checked; saveShop(doc => { doc.checked[k] = v; return doc; }); }
+  else if(t.dataset.act === "extracheck"){ const i = +t.dataset.i, v = t.checked; saveShop(doc => { if(doc.extras[i]) doc.extras[i].done = v; return doc; }); }
+  else if(t.id === "fGang"){ S.fGang = t.value; render(); }
+  else if(t.id === "fOhne"){ S.fOhne = t.value; render(); }
+  else if(t.id === "shopStart" && t.value){ S.shopStart = t.value; render(); }
+  else if(t.id === "shopDays"){ S.shopDays = +t.value; render(); }
+  else if(t.id === "importFile" && t.files[0]) importData(t.files[0]);
+});
+document.addEventListener("input", e => {
+  const t = e.target;
+  if(t.id === "q"){ S.q = t.value; render(); }
+  else if(t.id === "scaleK"){ S.scaleK = num(t.value) ?? 0; render(); }
+  else if(t.id === "scaleE"){ S.scaleE = num(t.value) ?? 0; render(); }
+});
+document.addEventListener("keydown", e => { if(e.key === "Enter" && e.target.id === "extraText"){ e.preventDefault(); addExtra(); } });
+function addExtra(){
+  const inp = $("#extraText"); const text = inp?.value.trim(); if(!text) return;
+  inp.value = ""; saveShop(doc => { doc.extras.push({text, done:false}); return doc; });
+}
+function showCopyFallback(text){
+  const d = $("#dlg");
+  d.innerHTML = `<div class="dlg-inner"><h2>Liste kopieren</h2><p class="muted">Text markieren und kopieren, dann z. B. per WhatsApp oder Mail verschicken.</p><textarea id="cpText" rows="14" style="width:100%">${esc(text)}</textarea></div><div class="dlg-foot"><button class="btn" id="cpClose">Schließen</button></div>`;
+  d.showModal(); const ta = $("#cpText"); ta.focus(); ta.select(); $("#cpClose").onclick = () => d.close();
+}
+
+/* ---------- Sicherung ---------- */
+async function exportData(){
+  const data = JSON.stringify({app:"pusteblume-kueche", version:1, exportiert:new Date().toISOString(), einstellungen:S.settings, rezepte:S.recipes, plan:S.plan}, null, 2);
+  const name = `pusteblume-sicherung-${TODAY}.json`;
+  if(S.downloads){
+    try{ await S.downloads.save({filename:name, data}); return; }
+    catch(err){ if(err?.code === "declined") return; }
+  }
+  showCopyFallback(data);
+}
+async function importData(file){
+  let data; try{ data = JSON.parse(await file.text()); }catch(_){ toast("Die Datei ist keine gültige Sicherung."); return; }
+  if(!data || data.app !== "pusteblume-kueche" || typeof data.rezepte !== "object"){ toast("Die Datei ist keine Sicherung dieser Seite."); return; }
+  const nR = Object.keys(data.rezepte||{}).length, nP = Object.keys(data.plan||{}).length;
+  if(!await ask(`${nR} Rezepte und ${nP} Plantage einlesen? Vorhandene Einträge mit gleicher Kennung werden überschrieben.`, "Einlesen")) return;
+  toast("Sicherung wird eingelesen …");
+  for(const [id,r] of Object.entries(data.rezepte||{})) await saveRecipe(id, r);
+  for(const [d,p] of Object.entries(data.plan||{})) await savePlanDay(d, p);
+  if(data.einstellungen) await saveSettings(data.einstellungen);
+  toast("Sicherung eingelesen.");
+}
+
+/* ---------- Start ---------- */
+render();
+(async function init(){
+  if(!window.claude || typeof window.claude.use !== "function"){ S.ready = true; render(); return; }
+  const [db, user, downloads] = await Promise.all([claude.use("db"), claude.use("user"), claude.use("downloads")]);
+  S.downloads = downloads;
+  if(!db){ S.ready = true; render(); return; }
+  S.db = db; S.live = true;
+  if(user){ try{ const c = await user.can("data.write"); if(c === false) S.canWrite = false; }catch(_){} }
+  const onErr = err => { console.error(err); if(err?.code === "revoked"){ S.live = false; S.canWrite = false; render(); } };
+  db.collection("rezepte").onSnapshot(snap => { const r = {}; snap.docs.forEach(d => r[d.id] = d.data()); S.recipes = r; S.ready = true; render(); }, onErr);
+  db.collection("plan").onSnapshot(snap => { const p = {}; snap.docs.forEach(d => p[d.id] = d.data()); S.plan = p; render(); }, onErr);
+  db.collection("einkauf").onSnapshot(snap => { const x = {}; snap.docs.forEach(d => x[d.id] = d.data()); S.einkauf = x; render(); }, onErr);
+  db.doc("meta/einstellungen").onSnapshot(d => { S.settings = d.exists ? {...structuredClone(DEFAULT_SETTINGS), ...d.data()} : structuredClone(DEFAULT_SETTINGS); render(); }, onErr);
+})();
+</script>
+</body>
+</html>

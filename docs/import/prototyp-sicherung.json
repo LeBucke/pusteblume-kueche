@@ -1,0 +1,385 @@
+{
+  "app": "pusteblume-kueche",
+  "version": 1,
+  "exportiert": "2026-10-05T12:00:00Z",
+  "einstellungen": {
+    "kinder": 20,
+    "erwachsene": 5,
+    "faktorErw": 1.5,
+    "lieferanten": [
+      "Bio-Bauer",
+      "Großhandel"
+    ],
+    "zuordnung": {
+      "Gemüse": "Bio-Bauer",
+      "Obst": "Bio-Bauer",
+      "Milchprodukte": "Bio-Bauer",
+      "Getreide & Teigwaren": "Großhandel",
+      "Grundnahrungsmittel": "Großhandel",
+      "Gewürze & Würzmittel": "Großhandel",
+      "Tiefkühl": "Großhandel",
+      "Konserven & Gläser": "Großhandel",
+      "Sonstiges": "Großhandel"
+    }
+  },
+  "rezepte": {
+    "bananenquark": {
+      "allergene": [
+        "Milch"
+      ],
+      "autor": "",
+      "beschreibung": "",
+      "erwachsene": 5,
+      "gang": "nachtisch",
+      "kategorie": "Quark & Joghurt",
+      "kinder": 20,
+      "name": "Bananenquark",
+      "notizen": "Bananen so spät wie möglich pürieren und unterheben, damit der Nachtisch nicht braun wird.",
+      "zubereitung": "Quark mit Joghurt verrühren.\nBananen pürieren und mit einem Schuss Zitronensaft unter die Quarkmasse heben.\nMit Vanillepulver verfeinern.",
+      "zutaten": [
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 1000,
+          "name": "Quark"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 500,
+          "name": "Joghurt"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Obst",
+          "menge": 1000,
+          "name": "Bananen"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Konserven & Gläser",
+          "menge": null,
+          "name": "Zitronensaft"
+        },
+        {
+          "einheit": "Prise",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": 1,
+          "name": "Vanillepulver"
+        }
+      ]
+    },
+    "buchstabensuppe": {
+      "allergene": [
+        "Glutenhaltiges Getreide",
+        "Sellerie"
+      ],
+      "autor": "Andrea Gutzmann",
+      "beschreibung": "",
+      "erwachsene": 5,
+      "gang": "hauptgang",
+      "kategorie": "Suppe",
+      "kinder": 20,
+      "name": "Buchstabensuppe",
+      "notizen": "",
+      "zubereitung": "Gemüse putzen und in mundgerechte Stücke schneiden.\nBrühe aufkochen und nach und nach das Gemüse zugeben, zuletzt die Erbsen.\nBuchstabennudeln nach Packungsanweisung kochen und zu der Suppe geben. Gegebenenfalls nachwürzen.",
+      "zutaten": [
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 1500,
+          "name": "Möhren"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 500,
+          "name": "Lauch"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 300,
+          "name": "Sellerie, Knolle"
+        },
+        {
+          "einheit": "St.",
+          "gruppe": "Gemüse",
+          "menge": 1,
+          "name": "Kohlrabi"
+        },
+        {
+          "einheit": "St.",
+          "gruppe": "Gemüse",
+          "menge": 1,
+          "name": "Blumenkohl"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Tiefkühl",
+          "menge": 900,
+          "name": "TK Erbsen"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Getreide & Teigwaren",
+          "menge": 250,
+          "name": "Buchstabennudeln"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Gekörnte Brühe"
+        }
+      ]
+    },
+    "kartoffel-zucchini-gratin": {
+      "allergene": [
+        "Milch"
+      ],
+      "autor": "",
+      "beschreibung": "",
+      "erwachsene": 5,
+      "gang": "hauptgang",
+      "kategorie": "Kartoffeln",
+      "kinder": 20,
+      "name": "Kartoffel-Zucchini-Gratin",
+      "notizen": "",
+      "zubereitung": "Kartoffeln schälen und in dünne Scheiben (5 mm) schneiden, Zucchini in Scheiben schneiden.\nBackofen auf 250 Grad vorheizen.\nMilch und Sahne mit Salz, weißem Pfeffer und Muskat zum Kochen bringen. Kartoffelscheiben dazugeben und unter vorsichtigem Wenden 10 Minuten köcheln lassen. Zucchinischeiben zum Schluss dazugeben.\nDie Hälfte des geraspelten Käses untermischen und alles auf die Auflaufformen verteilen. Mit dem restlichen Käse bestreuen.\nBackofen auf 180 Grad zurückstellen und den Auflauf ca. 40 Minuten backen.",
+      "zutaten": [
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 5500,
+          "name": "Kartoffeln, festkochend"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 1000,
+          "name": "Zucchini"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 500,
+          "name": "Sahne"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 1800,
+          "name": "Milch"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 750,
+          "name": "Gouda"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Jodsalz ohne Fluorid"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Pfeffer"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Muskat"
+        }
+      ]
+    },
+    "kartoffelgratin": {
+      "allergene": [
+        "Glutenhaltiges Getreide",
+        "Milch"
+      ],
+      "autor": "",
+      "beschreibung": "",
+      "erwachsene": 5,
+      "gang": "hauptgang",
+      "kategorie": "Kartoffeln",
+      "kinder": 20,
+      "name": "Kartoffelgratin",
+      "notizen": "",
+      "zubereitung": "Backofen auf 180 Grad vorheizen.\nKartoffeln schälen und in 5 mm dicke Scheiben schneiden oder hobeln, geht auch mit der Küchenmaschine.\nAus 4 EL Mehl und etwas Butter eine Mehlschwitze herstellen. Unter schnellem Rühren mit der kalten Milch ablöschen und aufkochen lassen. Sahne unterrühren und mit Pfeffer, Salz und Muskat abschmecken.\nKartoffeln in Auflaufformen füllen und die Milch-Sahne angießen. Reicht die Flüssigkeit nicht, noch etwas Sahne mit Milch mischen und angießen.\nKäse darüber streuen und im Ofen ca. 45 Minuten garen.",
+      "zutaten": [
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 6000,
+          "name": "Kartoffeln, festkochend"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 600,
+          "name": "Sahne"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 1900,
+          "name": "Milch"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 750,
+          "name": "Gouda"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Grundnahrungsmittel",
+          "menge": 60,
+          "name": "Mehl"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 60,
+          "name": "Butter"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Jodsalz ohne Fluorid"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Pfeffer"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Muskat"
+        }
+      ]
+    },
+    "mandarinenquark": {
+      "allergene": [
+        "Milch"
+      ],
+      "autor": "",
+      "beschreibung": "",
+      "erwachsene": 5,
+      "gang": "nachtisch",
+      "kategorie": "Quark & Joghurt",
+      "kinder": 20,
+      "name": "Mandarinenquark",
+      "notizen": "",
+      "zubereitung": "Quark und Joghurt mit dem Saft einer Mandarinendose verrühren und mit Vanillepulver süßen.\nDie abgetropften Mandarinen unterheben.",
+      "zutaten": [
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 1000,
+          "name": "Quark"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 500,
+          "name": "Joghurt"
+        },
+        {
+          "einheit": "Dose",
+          "gruppe": "Konserven & Gläser",
+          "menge": 2,
+          "name": "Mandarinen"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Vanillepulver"
+        }
+      ]
+    },
+    "nudel-spinat-auflauf": {
+      "allergene": [
+        "Glutenhaltiges Getreide",
+        "Milch"
+      ],
+      "autor": "",
+      "beschreibung": "Gericht für das ganze Jahr",
+      "erwachsene": 5,
+      "gang": "hauptgang",
+      "kategorie": "Teigwaren",
+      "kinder": 20,
+      "name": "Nudel-Spinat-Auflauf",
+      "notizen": "Im alten Rezept stand bei Spinat \"7 St.\", hier als Packungen übernommen. Bitte prüfen.",
+      "zubereitung": "Spinat erhitzen und mit Sahne, Frischkäse und Gewürzen abschmecken.\nNudeln in Salzwasser al dente kochen.\nAbwechselnd Nudeln und Spinat in eine Auflaufform schichten.\nMit geriebenem Käse bestreuen.\nBei 180 Grad ca. 20 Minuten backen, bis der Käse schön zerlaufen ist.",
+      "zutaten": [
+        {
+          "einheit": "g",
+          "gruppe": "Getreide & Teigwaren",
+          "menge": 1500,
+          "name": "Nudeln"
+        },
+        {
+          "einheit": "Pckg.",
+          "gruppe": "Tiefkühl",
+          "menge": 7,
+          "name": "TK Blattspinat"
+        },
+        {
+          "einheit": "ml",
+          "gruppe": "Milchprodukte",
+          "menge": 800,
+          "name": "Sahne"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 400,
+          "name": "Doppelrahmfrischkäse"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Milchprodukte",
+          "menge": 500,
+          "name": "Gouda"
+        },
+        {
+          "einheit": "g",
+          "gruppe": "Gemüse",
+          "menge": 300,
+          "name": "Zwiebeln"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Jodsalz ohne Fluorid"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Pfeffer"
+        },
+        {
+          "einheit": "",
+          "gruppe": "Gewürze & Würzmittel",
+          "menge": null,
+          "name": "Muskat"
+        }
+      ]
+    }
+  },
+  "plan": {}
+}

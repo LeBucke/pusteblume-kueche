@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Rezept zum Nachkochen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@500;600;700&amp;family=Nunito:wght@400;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#4F6A22}a:hover{color:#3B5118}
+</style>
+</helmet>
+<div style="width: 390px; height: 1320px; box-sizing: border-box; background: #F3F0E7; color: #2F3527; font-family: 'Nunito', 'Trebuchet MS', sans-serif; position: relative; overflow: hidden">
+
+  <div style="position: absolute; right: -70px; top: -60px; width: 190px; height: 190px; border-radius: 50%; background: #F4D779"></div>
+  <div style="position: absolute; left: -50px; bottom: -50px; width: 150px; height: 150px; border-radius: 50%; background: #B3D6DC"></div>
+
+  <div style="position: relative; padding: 22px 20px 40px; display: flex; flex-direction: column; gap: 14px">
+
+    <a href="Eltern-Woche.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 14px 0 8px; border-radius: 999px; background: #FFFDF8; text-decoration: none; color: #2F3527; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F3527" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>Speiseplan</a>
+
+    <div style="margin-top: 8px">
+      <p style="margin: 0; font-size: 14px; font-weight: 700; color: #6E5612">Hauptgang am Montag, 5.10.</p>
+      <h1 style="margin: 4px 0 0; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 40px; line-height: 1.05">Kartoffelgratin</h1>
+      <div style="display: flex; gap: 6px; margin-top: 10px">
+        <span style="font-size: 13px; font-weight: 700; color: #8A5430; background: #F6E1D0; padding: 3px 11px; border-radius: 999px">Milch</span>
+        <span style="font-size: 13px; font-weight: 700; color: #8A5430; background: #F6E1D0; padding: 3px 11px; border-radius: 999px">Gluten</span>
+      </div>
+    </div>
+
+    <section style="background: #E6DDEA; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 18px; color: #4E3D66">Für wie viele kochst du?</h2>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="flex: 1; font-size: 16px; font-weight: 700">Erwachsene</span>
+        <button aria-label="Weniger Erwachsene" onClick="{{decE}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #FFFDF8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F3527" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
+        <span style="width: 30px; text-align: center; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 22px">{{e}}</span>
+        <button aria-label="Mehr Erwachsene" onClick="{{incE}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #FFFDF8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F3527" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="flex: 1; font-size: 16px; font-weight: 700">Kinder</span>
+        <button aria-label="Weniger Kinder" onClick="{{decK}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #FFFDF8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F3527" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"></path></svg></button>
+        <span style="width: 30px; text-align: center; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 22px">{{k}}</span>
+        <button aria-label="Mehr Kinder" onClick="{{incK}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #FFFDF8; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F3527" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></button>
+      </div>
+    </section>
+
+    <section style="background: #FFFDF8; border-radius: 22px; padding: 14px 18px">
+      <h2 style="margin: 0 0 4px; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 20px">Zutaten</h2>
+      <sc-for list="{{ings}}" as="z" hint-placeholder-count="7">
+        <div style="display: flex; gap: 14px; padding: 9px 0; border-bottom: {{z.border}}; font-size: 16px">
+          <span style="width: 92px; flex: none; text-align: right; font-weight: 800">{{z.amount}}</span>
+          <span>{{z.name}}</span>
+        </div>
+      </sc-for>
+      <p style="margin: 10px 0 0; font-size: 13px; line-height: 1.5; color: #5B5A4C">Aus der Kita Menge umgerechnet. Gewürze nach Geschmack, bei kleinen Mengen reicht oft eine kürzere Backzeit.</p>
+    </section>
+
+    <section style="background: #FFFDF8; border-radius: 22px; padding: 14px 18px">
+      <h2 style="margin: 0 0 8px; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 20px">So geht's</h2>
+      <ol style="margin: 0; padding-left: 22px; font-size: 16px; line-height: 1.5; display: flex; flex-direction: column; gap: 8px">
+        <li>Backofen auf 180 Grad vorheizen.</li>
+        <li>Kartoffeln schälen und 5 mm dick hobeln.</li>
+        <li>Aus Mehl und Butter eine Mehlschwitze machen, mit kalter Milch ablöschen und aufkochen.</li>
+        <li>Sahne unterrühren, mit Salz, Pfeffer und Muskat abschmecken.</li>
+        <li>Kartoffeln in eine Form schichten, Soße angießen, Käse darüber streuen.</li>
+        <li>Etwa 30 bis 45 Minuten backen, bis die Kartoffeln weich sind.</li>
+      </ol>
+    </section>
+
+    <p style="margin: 4px 0 0; text-align: center; font-family: 'Dosis', sans-serif; font-weight: 700; font-size: 20px; color: #4F6A22">Guten Appetit!</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1320}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { e: 2, k: 2 };
+  }
+  renderVals() {
+    const base = 20 + 5 * 1.5;
+    const f = (this.state.k + this.state.e * 1.5) / base;
+    const fmt = (v, u) => {
+      if (u === 'g' || u === 'ml') {
+        if (v >= 1000) { const x = Math.round(v / 100) / 10; return String(x).replace('.', ',') + (u === 'g' ? ' kg' : ' l'); }
+        const r = v >= 100 ? Math.round(v / 10) * 10 : Math.max(1, Math.round(v));
+        return r + ' ' + u;
+      }
+      return String(Math.round(v * 10) / 10).replace('.', ',') + ' ' + u;
+    };
+    const list = [
+      ['Kartoffeln, festkochend', 6000, 'g'], ['Milch', 1900, 'ml'], ['Gouda', 750, 'g'],
+      ['Sahne', 600, 'ml'], ['Mehl', 60, 'g'], ['Butter', 60, 'g'], ['Salz, Pfeffer, Muskat', null, '']
+    ];
+    const ings = list.map((z, i) => ({
+      name: z[0],
+      amount: z[1] === null ? 'nach Bedarf' : fmt(z[1] * f, z[2]),
+      border: i === list.length - 1 ? '0' : '1px solid #ECE6D8'
+    }));
+    const clamp = (n) => Math.max(0, Math.min(12, n));
+    return {
+      e: this.state.e, k: this.state.k, ings,
+      incE: () => this.setState({ e: clamp(this.state.e + 1) }),
+      decE: () => this.setState({ e: clamp(this.state.e - 1) }),
+      incK: () => this.setState({ k: clamp(this.state.k + 1) }),
+      decK: () => this.setState({ k: clamp(this.state.k - 1) })
+    };
+  }
+}
+</script>
+</body>
+</html>

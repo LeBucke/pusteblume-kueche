@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* Design-Tokens nach SPEC 7a. Komponenten nutzen nur diese Namen, keine Hexwerte. */
+@theme {
+  /* Grund und Text */
+  --color-ground: #f3f0e7;
+  --color-surface: #fffdf8;
+  --color-line: #e2dccd;
+  --color-line-soft: #ece6d8; /* Trennlinien innerhalb von Karten */
+  --color-ink: #2f3527;
+  --color-muted: #5b5a4c;
+
+  /* Aktionen */
+  --color-primary: #5f7c2b;
+  --color-primary-ink: #4f6a22;
+
+  /* Gänge: Punkt, Fläche, Text darauf, Rahmen */
+  --color-course-starter: #b5ccb2;
+  --color-course-main: #f4d779;
+  --color-course-main-surface: #faebc0;
+  --color-course-main-ink: #6e5612;
+  --color-course-main-line: #e2c55e;
+  --color-course-dessert: #c9b5d9;
+  --color-course-dessert-surface: #e6ddea;
+  --color-course-dessert-ink: #5e4a78;
+
+  /* Hinweise */
+  --color-allergen: #f6e1d0;
+  --color-allergen-ink: #8a5430;
+  --color-info: #d7eaed;
+  --color-info-ink: #2f6670;
+  --color-closed: #ead8b2;
+  --color-closed-ink: #6e5612;
+
+  /* Pastellkreise */
+  --color-deko-1: #b3d6dc;
+  --color-deko-2: #f4d779;
+  --color-deko-3: #ead8b2;
+  --color-deko-4: #b5ccb2;
+  --color-deko-5: #d1c4d6;
+  --color-deko-6: #e9be9c;
+
+  /* Rundungen: Karten 18 bis 24 px, Buttons, Chips und Tabs mit rounded-full */
+  --radius-card-sm: 1.125rem;
+  --radius-card: 1.5rem;
+
+  /* Bedienelemente mindestens 44 px, in der Küche 46 bis 52 px */
+  --spacing-touch: 2.75rem;
+  --spacing-touch-kitchen: 3.25rem;
+}
+
+/* Schriften kommen aus next/font (siehe app/layout.tsx). */
+@theme inline {
+  --font-display: var(--font-dosis), "Trebuchet MS", sans-serif;
+  --font-body: var(--font-nunito), "Trebuchet MS", sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
